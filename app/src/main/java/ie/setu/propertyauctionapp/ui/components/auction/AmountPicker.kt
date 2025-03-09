@@ -17,7 +17,7 @@ import ie.setu.propertyauctionapp.ui.theme.PropertyAuctionAppTheme
 fun AmountPicker(
     onPriceAmountChange: (Int) -> Unit
 ) {
-    val possibleValues = listOf("10", "20", "50", "100", "500", "1000")
+    val possibleValues = listOf("1000", "2000", "5000", "10000", "50000", "100000")
     var pickerValue by remember { mutableStateOf(possibleValues[0]) }
 
     ListItemPicker(

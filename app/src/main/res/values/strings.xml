@@ -21,4 +21,18 @@
     <string name="about_message">You can use this app \n to submit properties for auctioning.\n\n Please ensure you follow the \n rules and regulations.</string>
     <string name="confirm_delete">Confirm Delete?</string>
     <string name="confirm_delete_message">Are you sure you want to delete this property?</string>
+    <string name="auction_button_description">Put up for Auction</string>
+    <string name="details_screen_title">Property Details</string>
+    <string name="details_screen_instructions">Please Update your Details Below</string>
+    <string name="dropdownmenu_description">Open Info</string>
+    <string name="dropdownmenu_info">Information</string>
+    <string name="property_card_status">Property Status</string>
+    <string name="details_empty">Details Cannot be Empty...</string>
+    <string name="details_short">Details must be at least 2 characters</string>
+    <string name="details_type">Property Type</string>
+    <string name="details_price">Price Amount</string>
+    <string name="details_date">Date Auctioned</string>
+    <string name="details_details">Details</string>
+    <string name="menu_button">Menu Button</string>
+    <string name="back_button">Back Button</string>
 </resources>

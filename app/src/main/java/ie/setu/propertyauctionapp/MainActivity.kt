@@ -26,6 +26,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -120,7 +121,7 @@ fun TopAppBarProvider(
                 IconButton(onClick = navigateUp) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = "Back Button",
+                        contentDescription = stringResource(R.string.back_button),
                         tint = Color.White,
                         modifier = Modifier.size(30.dp)
                     )
@@ -129,7 +130,7 @@ fun TopAppBarProvider(
             else
                 Icon(
                     imageVector = Icons.Filled.Menu,
-                    contentDescription = "Menu Button",
+                    contentDescription = stringResource(R.string.menu_button),
                     tint = Color.White,
                     modifier = Modifier.size(30.dp)
                 )

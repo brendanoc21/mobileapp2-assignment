@@ -20,9 +20,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import ie.setu.propertyauctionapp.R
 import ie.setu.propertyauctionapp.ui.theme.PropertyAuctionAppTheme
 
 @Composable
@@ -41,7 +43,7 @@ fun DropDownMenu() {
         }) {
             Icon(
                 imageVector = Icons.Default.MoreVert,
-                contentDescription = "Open Info",
+                contentDescription = stringResource(R.string.dropdownmenu_description),
                 tint = Color.White,
                 modifier = Modifier.size(30.dp)
             )
@@ -52,11 +54,11 @@ fun DropDownMenu() {
             onDismissRequest = { expanded = false },
         ) {
             DropdownMenuItem(
-                text = { Text(color = Color.White,text = "Info", fontSize = 18.sp) },
+                text = { Text(color = Color.White,text = stringResource(R.string.dropdownmenu_info), fontSize = 18.sp) },
                 trailingIcon = {
                     Icon(
                         imageVector = Icons.Filled.Info,
-                        contentDescription = "Info",
+                        contentDescription = stringResource(R.string.dropdownmenu_info),
                         tint = Color.White,
                         modifier = Modifier.size(24.dp)
                     )
