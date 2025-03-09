@@ -11,6 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PropertyAuctionApp"
+        android:name="ie.setu.propertyauctionapp.main.PropertyAuctionAppMainApp"
         tools:targetApi="31">
         <activity
             android:name=".MainActivity"

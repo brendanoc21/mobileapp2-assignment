@@ -34,6 +34,7 @@ import ie.setu.propertyauctionapp.R
 import ie.setu.propertyauctionapp.data.AuctionModel
 import ie.setu.propertyauctionapp.data.fakeAuctions
 import ie.setu.propertyauctionapp.ui.theme.PropertyAuctionAppTheme
+import timber.log.Timber
 
 @Composable
 fun AuctionButton(
@@ -43,13 +44,22 @@ fun AuctionButton(
     onTotalAuctionedChange: (Int) -> Unit
 ) {
     var totalAuctioned by remember { mutableIntStateOf(0) }
+    val context = LocalContext.current
+    val message = stringResource(R.string.limitExceeded,auction.priceAmount)
 
     Row {
         Button(
             onClick = {
-                totalAuctioned+=auction.priceAmount
-                onTotalAuctionedChange(totalAuctioned)
-                auctions.add(auction)
+                if(totalAuctioned + auction.priceAmount <= 10000) {
+                    totalAuctioned+=auction.priceAmount
+                    onTotalAuctionedChange(totalAuctioned)
+                    auctions.add(auction)
+                    Timber.i("Property info : $auction")
+                    Timber.i("Property List info : ${auctions.toList()}")
+                }
+                else
+                    Toast.makeText(context,message,
+                        Toast.LENGTH_SHORT).show()
             },
             elevation = ButtonDefaults.buttonElevation(20.dp)
         ) {
