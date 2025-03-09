@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">PropertyAuctionApp</string>
+    <string name="auctionTitle">Welcome to the Auction App</string>
+    <string name="auctionSubtitle">Insert property details</string>
+    <string name="auctionButton">Submit Property</string>
+    <string name="house">House</string>
+    <string name="apartment">Apartment</string>
+    <string name="amount">Amount</string>
+    <string name="total">Total : </string>
+    <string name="totalSoFar">€%d</string>
+    <string name="limitExceeded">"A Donation of €%d will exceed Maximum Donations of €10000"</string>
+    <string name="propertiesTitle">Properties List</string>
+    <string name="defaultAmount">00</string>
+    <string name="defaultMethod">N/A</string>
+    <string name="defaultDetails">Local Property</string>
+    <string name="enter_details">Enter Details</string>
+    <string name="show_less">Show Less</string>
+    <string name="show_more">Show More</string>
 </resources>
