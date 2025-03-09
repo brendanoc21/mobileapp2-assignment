@@ -1,8 +1,10 @@
 package ie.setu.propertyauctionapp.main
 
 import android.app.Application
+import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
+@HiltAndroidApp
 class PropertyAuctionAppMainApp : Application() {
     override fun onCreate() {
         super.onCreate()

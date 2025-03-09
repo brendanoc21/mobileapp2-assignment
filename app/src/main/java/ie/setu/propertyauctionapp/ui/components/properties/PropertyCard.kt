@@ -45,7 +45,9 @@ fun PropertyCard(
     propertyType: String,
     priceAmount: Int,
     details: String,
-    dateCreated: String
+    dateCreated: String,
+    onClickDelete: () -> Unit,
+    onClickPropertyDetails: () -> Unit
 ) {
     Card(
         colors = CardDefaults.cardColors(
@@ -56,7 +58,10 @@ fun PropertyCard(
         PropertyCardContent(propertyType,
             priceAmount,
             details,
-            dateCreated)
+            dateCreated,
+            onClickDelete,
+            onClickPropertyDetails
+        )
     }
 }
 
@@ -65,9 +70,12 @@ private fun PropertyCardContent(
     propertyType: String,
     priceAmount: Int,
     details: String,
-    dateCreated: String
+    dateCreated: String,
+    onClickDelete: () -> Unit,
+    onClickPropertyDetails: () -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
+    var showDeleteConfirmDialog by remember { mutableStateOf(false) }
 
     Row(
         modifier = Modifier
@@ -109,6 +117,24 @@ private fun PropertyCardContent(
             )
             if (expanded) {
                 Text(modifier = Modifier.padding(vertical = 16.dp), text = details)
+                Row(modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween) {
+                    FilledTonalButton(onClick = onClickPropertyDetails) {
+                        Text(text = "Show More...")
+                    }
+
+                    FilledTonalIconButton(onClick = {
+                        showDeleteConfirmDialog = true
+                    }) {
+                        Icon(Icons.Filled.Delete, "Delete Property")
+                    }
+                    if (showDeleteConfirmDialog) {
+                        showDeleteAlert(
+                            onDismiss = { showDeleteConfirmDialog = false },
+                            onDelete = onClickDelete
+                        )
+                    }
+                }
             }
         }
         IconButton(onClick = { expanded = !expanded }) {
@@ -124,15 +150,39 @@ private fun PropertyCardContent(
     }
 }
 
+@Composable
+fun showDeleteAlert(
+    onDismiss: () -> Unit,
+    onDelete: () -> Unit) {
+    AlertDialog(
+        onDismissRequest = onDismiss ,
+        title = { Text(stringResource(id = R.string.confirm_delete)) },
+        text = { Text(stringResource(id = R.string.confirm_delete_message)) },
+        confirmButton = {
+            Button(
+                onClick = { onDelete() }
+            ) { Text("Yes") }
+        },
+        dismissButton = {
+            Button(onClick = onDismiss) { Text("No") }
+        }
+    )
+}
+
 @Preview
 @Composable
 fun PropertyCardPreview() {
     PropertyAuctionAppTheme {
         PropertyCard(
-            propertyType = "Direct",
+            propertyType = "House",
             priceAmount = 100,
-            details = "A description of my issue...",
-            dateCreated = DateFormat.getDateTimeInstance().format(Date())
+            details = """
+                A message entered 
+                by the user..."
+            """.trimIndent(),
+            dateCreated = DateFormat.getDateTimeInstance().format(Date()),
+            onClickDelete = { },
+            onClickPropertyDetails = {}
         )
     }
 }

@@ -4,14 +4,10 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.automirrored.filled.List
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -30,12 +26,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import dagger.hilt.android.AndroidEntryPoint
 import ie.setu.propertyauctionapp.data.AuctionModel
 import ie.setu.propertyauctionapp.navigation.AppDestination
 import ie.setu.propertyauctionapp.navigation.Auction
@@ -45,10 +41,9 @@ import ie.setu.propertyauctionapp.navigation.allDestinations
 import ie.setu.propertyauctionapp.ui.components.general.BottomAppBarProvider
 import ie.setu.propertyauctionapp.ui.components.general.DropDownMenu
 import ie.setu.propertyauctionapp.ui.components.general.MenuItem
-import ie.setu.propertyauctionapp.ui.screens.ScreenAuction
-import ie.setu.propertyauctionapp.ui.screens.ScreenProperties
 import ie.setu.propertyauctionapp.ui.theme.PropertyAuctionAppTheme
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

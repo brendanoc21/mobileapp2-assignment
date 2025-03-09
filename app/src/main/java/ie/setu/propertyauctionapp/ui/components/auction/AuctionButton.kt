@@ -30,9 +30,12 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import ie.setu.propertyauctionapp.R
 import ie.setu.propertyauctionapp.data.AuctionModel
 import ie.setu.propertyauctionapp.data.fakeAuctions
+import ie.setu.propertyauctionapp.ui.screens.properties.PropertiesViewModel
+import ie.setu.propertyauctionapp.ui.screens.auction.AuctionViewModel
 import ie.setu.propertyauctionapp.ui.theme.PropertyAuctionAppTheme
 import timber.log.Timber
 
@@ -40,10 +43,13 @@ import timber.log.Timber
 fun AuctionButton(
     modifier: Modifier = Modifier,
     auction: AuctionModel,
-    auctions: SnapshotStateList<AuctionModel>,
+    auctionViewModel: AuctionViewModel = hiltViewModel(),
+    propertiesViewModel: PropertiesViewModel = hiltViewModel(),
     onTotalAuctionedChange: (Int) -> Unit
 ) {
-    var totalAuctioned by remember { mutableIntStateOf(0) }
+    val auctions = propertiesViewModel.uiAuctions.collectAsState().value
+
+    var totalAuctioned = auctions.sumOf { it.priceAmount }
     val context = LocalContext.current
     val message = stringResource(R.string.limitExceeded,auction.priceAmount)
 
@@ -53,7 +59,7 @@ fun AuctionButton(
                 if(totalAuctioned + auction.priceAmount <= 10000) {
                     totalAuctioned+=auction.priceAmount
                     onTotalAuctionedChange(totalAuctioned)
-                    auctions.add(auction)
+                    auctionViewModel.insert(auction)
                     Timber.i("Property info : $auction")
                     Timber.i("Property List info : ${auctions.toList()}")
                 }
@@ -104,10 +110,73 @@ fun AuctionButton(
 @Composable
 fun AuctionButtonPreview() {
     PropertyAuctionAppTheme {
-        AuctionButton(
+        PreviewAuctionButton(
             Modifier,
             AuctionModel(),
             auctions = fakeAuctions.toMutableStateList()
         ) {}
+    }
+}
+
+@Composable
+fun PreviewAuctionButton(
+    modifier: Modifier = Modifier,
+    auction: AuctionModel,
+    auctions: SnapshotStateList<AuctionModel>,
+    onTotalAuctionedChange: (Int) -> Unit
+) {
+
+    var totalAuctioned = auctions.sumOf { it.priceAmount }
+    val context = LocalContext.current
+    val message = stringResource(R.string.limitExceeded,auction.priceAmount)
+
+    Row {
+        Button(
+            onClick = {
+                if(totalAuctioned + auction.priceAmount <= 10000) {
+                    totalAuctioned+=auction.priceAmount
+                    onTotalAuctionedChange(totalAuctioned)
+                    auctions.add(auction)
+                    Timber.i("Property info : $auction")
+                    Timber.i("Property List info : ${auctions.toList()}")
+                }
+                else
+                    Toast.makeText(context,message,
+                        Toast.LENGTH_SHORT).show()
+            },
+            elevation = ButtonDefaults.buttonElevation(20.dp)
+        ) {
+            Icon(Icons.Default.Add, contentDescription = "Auction")
+            Spacer(modifier.width(width = 4.dp))
+            Text(
+                text = stringResource(R.string.auctionButton),
+                fontWeight = FontWeight.Bold,
+                fontSize = 20.sp,
+                color = Color.White
+            )
+        }
+        Spacer(modifier.weight(1f))
+        Text(
+            buildAnnotatedString {
+                withStyle(
+                    style = SpanStyle(
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 20.sp,
+                        color = Color.Black
+                    )
+                ) {
+                    append(stringResource(R.string.total) + " €")
+                }
+
+
+                withStyle(
+                    style = SpanStyle(
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 20.sp,
+                        color = MaterialTheme.colorScheme.secondary)
+                ) {
+                    append(totalAuctioned.toString())
+                }
+            })
     }
 }

@@ -1,4 +1,4 @@
-package ie.setu.propertyauctionapp.ui.screens
+package ie.setu.propertyauctionapp.ui.screens.auction
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -18,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import ie.setu.propertyauctionapp.data.AuctionModel
 import ie.setu.propertyauctionapp.data.fakeAuctions
 import ie.setu.propertyauctionapp.ui.components.auction.AmountPicker
@@ -26,11 +27,14 @@ import ie.setu.propertyauctionapp.ui.components.auction.DetailsInput
 import ie.setu.propertyauctionapp.ui.components.auction.ProgressBar
 import ie.setu.propertyauctionapp.ui.components.auction.RadioButtonGroup
 import ie.setu.propertyauctionapp.ui.components.auction.WelcomeText
+import ie.setu.propertyauctionapp.ui.screens.properties.PropertiesViewModel
 import ie.setu.propertyauctionapp.ui.theme.PropertyAuctionAppTheme
 
 @Composable
-fun ScreenAuction(modifier: Modifier = Modifier,
-                 auctions: SnapshotStateList<AuctionModel>) {
+fun AuctionScreen(modifier: Modifier = Modifier,
+                 propertiesViewModel: PropertiesViewModel = hiltViewModel()) {
+
+    val auctions = propertiesViewModel.uiAuctions.collectAsState().value
 
     var propertyType by remember { mutableStateOf("House") }
     var priceAmount by remember { mutableIntStateOf(10) }
@@ -62,7 +66,7 @@ fun ScreenAuction(modifier: Modifier = Modifier,
                 )
             }
             ProgressBar(
-                modifier = modifier.padding(top = 80.dp,bottom = 24.dp),
+                modifier = modifier.padding(top = 30.dp,bottom = 14.dp),
                 totalAuctioned = totalAuctioned)
             DetailsInput(
                 modifier = modifier,
@@ -73,7 +77,6 @@ fun ScreenAuction(modifier: Modifier = Modifier,
                 auction = AuctionModel(propertyType = propertyType,
                     priceAmount = priceAmount,
                     details = propertyDetails),
-                auctions = auctions,
                 onTotalAuctionedChange = { totalAuctioned = it }
             )
         }
@@ -84,7 +87,58 @@ fun ScreenAuction(modifier: Modifier = Modifier,
 @Composable
 fun AuctionScreenPreview() {
     PropertyAuctionAppTheme {
-        ScreenAuction( modifier = Modifier,
+        PreviewAuctionScreen( modifier = Modifier,
             auctions = fakeAuctions.toMutableStateList())
+    }
+}
+
+@Composable
+fun PreviewAuctionScreen(modifier: Modifier = Modifier,
+                        auctions: SnapshotStateList<AuctionModel>
+) {
+    var propertyType by remember { mutableStateOf("House") }
+    var priceAmount by remember { mutableIntStateOf(10) }
+    var propertyDetails by remember { mutableStateOf("Local Property") }
+    var totalAuctioned by remember { mutableIntStateOf(0) }
+
+    totalAuctioned = auctions.sumOf { it.priceAmount }
+
+    Column {
+        Column(
+            modifier = modifier.padding(
+                start = 24.dp,
+                end = 24.dp
+            ),
+            verticalArrangement = Arrangement.spacedBy(30.dp),
+        ) {
+            WelcomeText()
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+            )
+            {
+                RadioButtonGroup(
+                    modifier = modifier,
+                    onPropertyTypeChange = { propertyType = it }
+                )
+                Spacer(modifier.weight(1f))
+                AmountPicker(
+                    onPriceAmountChange = { priceAmount = it }
+                )
+            }
+            ProgressBar(
+                modifier = modifier,
+                totalAuctioned = totalAuctioned)
+            DetailsInput(
+                modifier = modifier,
+                onDetailsChange = { propertyDetails = it }
+            )
+            AuctionButton (
+                modifier = modifier,
+                auction = AuctionModel(propertyType = propertyType,
+                    priceAmount = priceAmount,
+                    details = propertyDetails),
+                onTotalAuctionedChange = { totalAuctioned = it }
+            )
+        }
     }
 }
