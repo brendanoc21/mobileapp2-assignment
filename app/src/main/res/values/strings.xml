@@ -17,4 +17,6 @@
     <string name="show_less">Show Less</string>
     <string name="show_more">Show More</string>
     <string name="empty_list">No Auctions Yet - Please submit a Property.</string>
+    <string name="about_title">Welcome to the Property Auction App!</string>
+    <string name="about_message">You can use this app \n to submit properties for auctioning.\n\n Please ensure you follow the \n rules and regulations.</string>
 </resources>

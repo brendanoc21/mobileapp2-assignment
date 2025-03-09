@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Menu
@@ -42,6 +43,7 @@ import ie.setu.propertyauctionapp.navigation.NavHostProvider
 import ie.setu.propertyauctionapp.navigation.Properties
 import ie.setu.propertyauctionapp.navigation.allDestinations
 import ie.setu.propertyauctionapp.ui.components.general.BottomAppBarProvider
+import ie.setu.propertyauctionapp.ui.components.general.DropDownMenu
 import ie.setu.propertyauctionapp.ui.components.general.MenuItem
 import ie.setu.propertyauctionapp.ui.screens.ScreenAuction
 import ie.setu.propertyauctionapp.ui.screens.ScreenProperties
@@ -80,7 +82,12 @@ fun PropertyAuctionApp(modifier: Modifier = Modifier,
 
     Scaffold(
         modifier = modifier,
-        topBar = { TopAppBarProvider(currentScreen = currentBottomScreen) },
+        topBar = {
+            TopAppBarProvider(
+                currentScreen = currentBottomScreen,
+                canNavigateBack = navController.previousBackStackEntry != null
+            ) { navController.navigateUp() }
+        },
         content = { paddingValues ->
             NavHostProvider(
                 modifier = modifier,
@@ -95,9 +102,13 @@ fun PropertyAuctionApp(modifier: Modifier = Modifier,
     )
 }
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopAppBarProvider(currentScreen: AppDestination)
+fun TopAppBarProvider(
+    currentScreen: AppDestination,
+    canNavigateBack: Boolean,
+    navigateUp: () -> Unit = {})
 {
     TopAppBar(
         title = {
@@ -110,21 +121,33 @@ fun TopAppBarProvider(currentScreen: AppDestination)
             containerColor = MaterialTheme.colorScheme.primary
         ),
         navigationIcon = {
-            Icon(
-                imageVector = Icons.Filled.Menu,
-                contentDescription = "Menu Button",
-                tint = Color.White,
-                modifier = Modifier.size(30.dp)
-            )
+            if (canNavigateBack) {
+                IconButton(onClick = navigateUp) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = "Back Button",
+                        tint = Color.White,
+                        modifier = Modifier.size(30.dp)
+                    )
+                }
+            }
+            else
+                Icon(
+                    imageVector = Icons.Filled.Menu,
+                    contentDescription = "Menu Button",
+                    tint = Color.White,
+                    modifier = Modifier.size(30.dp)
+                )
+
         },
-        actions = { }
+        actions = { DropDownMenu() }
     )
 }
-
 @Preview(showBackground = true)
 @Composable
 fun TopAppBarPreview() {
     PropertyAuctionAppTheme {
-        TopAppBarProvider(Auction)
+        TopAppBarProvider(Auction,
+            true)
     }
 }

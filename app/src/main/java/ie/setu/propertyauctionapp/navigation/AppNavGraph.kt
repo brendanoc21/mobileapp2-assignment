@@ -9,6 +9,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import ie.setu.propertyauctionapp.data.AuctionModel
+import ie.setu.propertyauctionapp.ui.screens.ScreenAbout
 import ie.setu.propertyauctionapp.ui.screens.ScreenAuction
 import ie.setu.propertyauctionapp.ui.screens.ScreenProperties
 
@@ -31,6 +32,10 @@ fun NavHostProvider(
         composable(route = Properties.route) {
             //call our 'Report' Screen Here
             ScreenProperties(modifier = modifier, auctions = auctions)
+        }
+        composable(route = About.route) {
+            //call our 'About' Screen Here
+            ScreenAbout(modifier = modifier)
         }
     }
 }

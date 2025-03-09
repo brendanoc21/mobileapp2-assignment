@@ -3,6 +3,7 @@ package ie.setu.propertyauctionapp.navigation
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.AddCircle
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.ui.graphics.vector.ImageVector
 
 interface AppDestination {
@@ -23,5 +24,12 @@ object Auction : AppDestination {
     override val route = "Auction"
 }
 
-val bottomAppBarDestinations = listOf(Auction, Properties)
-val allDestinations = listOf(Properties, Auction)
+object About : AppDestination {
+    override val icon = Icons.Filled.Info
+    override val label = "About"
+    override val route = "about"
+}
+
+
+val bottomAppBarDestinations = listOf(Auction, Properties, About)
+val allDestinations = listOf(Properties, Auction, About)
