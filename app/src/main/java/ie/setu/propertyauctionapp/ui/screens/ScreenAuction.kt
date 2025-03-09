@@ -42,7 +42,6 @@ fun ScreenAuction(modifier: Modifier = Modifier,
     Column {
         Column(
             modifier = modifier.padding(
-                top = 48.dp,
                 start = 24.dp,
                 end = 24.dp
             ),
@@ -63,7 +62,7 @@ fun ScreenAuction(modifier: Modifier = Modifier,
                 )
             }
             ProgressBar(
-                modifier = modifier,
+                modifier = modifier.padding(top = 80.dp,bottom = 24.dp),
                 totalAuctioned = totalAuctioned)
             DetailsInput(
                 modifier = modifier,
