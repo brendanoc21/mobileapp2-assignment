@@ -29,10 +29,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import ie.setu.propertyauctionapp.R
 import ie.setu.propertyauctionapp.ui.components.details.DetailsScreenText
 import ie.setu.propertyauctionapp.ui.components.details.ReadOnlyTextField
 
@@ -44,8 +46,8 @@ fun DetailsScreen(
 ) {
     var auction = detailViewModel.auction.value
 
-    val errorEmptyDetails = "Details Cannot be Empty..."
-    val errorShortDetails = "Details must be at least 2 characters"
+    val errorEmptyDetails = stringResource(R.string.details_empty)
+    val errorShortDetails = stringResource(R.string.details_short)
     var text by rememberSaveable { mutableStateOf("") }
     var onDetailsChanged by rememberSaveable { mutableStateOf(false) }
     var isEmptyError by rememberSaveable { mutableStateOf(false) }
@@ -74,13 +76,13 @@ fun DetailsScreen(
         {
             //Property Type Field
             ReadOnlyTextField(value = auction.propertyType,
-                label = "Property Type")
+                label = stringResource(R.string.details_type))
             //Price Amount Field
             ReadOnlyTextField(value = "€" + auction.priceAmount.toString(),
-                label = "Price Amount")
+                label = stringResource(R.string.details_price))
             //Date Auctioned Field
             ReadOnlyTextField(value = auction.dateAuctioned.toString(),
-                label = "Date Auctioned")
+                label = stringResource(R.string.details_date))
             //Message Field
             text = auction.details
             OutlinedTextField(modifier = Modifier.fillMaxWidth(),
@@ -91,7 +93,7 @@ fun DetailsScreen(
                     auction.details = text
                 },
                 maxLines = 2,
-                label = { Text(text = "Details") },
+                label = { Text(text = stringResource(R.string.details_details)) },
                 isError = isEmptyError || isShortError,
                 supportingText = {
                     if (isEmptyError) {

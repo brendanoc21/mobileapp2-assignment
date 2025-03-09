@@ -95,7 +95,7 @@ private fun PropertyCardContent(
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(
                     imageVector = Icons.Filled.Business,
-                    "Property Status",
+                    stringResource(R.string.property_card_status),
                     Modifier.padding(end = 8.dp)
                 )
                 Text(

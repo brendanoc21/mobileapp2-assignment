@@ -13,10 +13,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Modifier
@@ -56,7 +52,7 @@ fun AuctionButton(
     Row {
         Button(
             onClick = {
-                if(totalAuctioned + auction.priceAmount <= 10000) {
+                if(totalAuctioned + auction.priceAmount <= 1000000) {
                     totalAuctioned+=auction.priceAmount
                     onTotalAuctionedChange(totalAuctioned)
                     auctionViewModel.insert(auction)
@@ -69,7 +65,7 @@ fun AuctionButton(
             },
             elevation = ButtonDefaults.buttonElevation(20.dp)
         ) {
-            Icon(Icons.Default.Add, contentDescription = "Put up for Auction")
+            Icon(Icons.Default.Add, contentDescription = stringResource(R.string.auction_button_description))
             Spacer(modifier.width(width = 4.dp))
             Text(
                 text = stringResource(R.string.auctionButton),
@@ -133,7 +129,7 @@ fun PreviewAuctionButton(
     Row {
         Button(
             onClick = {
-                if(totalAuctioned + auction.priceAmount <= 10000) {
+                if(totalAuctioned + auction.priceAmount <= 1000000) {
                     totalAuctioned+=auction.priceAmount
                     onTotalAuctionedChange(totalAuctioned)
                     auctions.add(auction)

@@ -23,7 +23,7 @@ fun ProgressBar(modifier: Modifier = Modifier,
                 totalAuctioned: Int,) {
     var currentProgress by remember { mutableFloatStateOf(0f) }
 
-    currentProgress = totalAuctioned / 10000f
+    currentProgress = totalAuctioned / 1000000f
 
     LinearProgressIndicator(
         progress = { currentProgress },
