@@ -1,4 +1,4 @@
-package ie.setu.propertyauctionapp.ui.screens
+package ie.setu.propertyauctionapp.ui.screens.about
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -24,7 +24,7 @@ import ie.setu.propertyauctionapp.R
 import ie.setu.propertyauctionapp.ui.theme.PropertyAuctionAppTheme
 
 @Composable
-fun ScreenAbout(modifier: Modifier = Modifier) {
+fun AboutScreen(modifier: Modifier = Modifier) {
 
     Column(
         modifier = modifier.background(MaterialTheme.colorScheme.secondary),
@@ -55,6 +55,6 @@ fun ScreenAbout(modifier: Modifier = Modifier) {
 @Composable
 fun AboutScreenPreview() {
     PropertyAuctionAppTheme {
-        ScreenAbout( modifier = Modifier)
+        AboutScreen( modifier = Modifier)
     }
 }

@@ -9,9 +9,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import ie.setu.propertyauctionapp.data.AuctionModel
-import ie.setu.propertyauctionapp.ui.screens.ScreenAbout
-import ie.setu.propertyauctionapp.ui.screens.ScreenAuction
-import ie.setu.propertyauctionapp.ui.screens.ScreenProperties
+import ie.setu.propertyauctionapp.ui.screens.about.AboutScreen
+import ie.setu.propertyauctionapp.ui.screens.auction.AuctionScreen
+import ie.setu.propertyauctionapp.ui.screens.properties.PropertiesScreen
 
 @Composable
 fun NavHostProvider(
@@ -26,16 +26,16 @@ fun NavHostProvider(
         modifier = Modifier.padding(paddingValues = paddingValues)) {
 
         composable(route = Auction.route) {
-            //call our 'Donate' Screen Here
-            ScreenAuction(modifier = modifier,auctions = auctions)
+            //call our 'Auction' Screen Here
+            AuctionScreen(modifier = modifier)
         }
         composable(route = Properties.route) {
-            //call our 'Report' Screen Here
-            ScreenProperties(modifier = modifier, auctions = auctions)
+            //call our 'Properties' Screen Here
+            PropertiesScreen(modifier = modifier)
         }
         composable(route = About.route) {
             //call our 'About' Screen Here
-            ScreenAbout(modifier = modifier)
+            AboutScreen(modifier = modifier)
         }
     }
 }
