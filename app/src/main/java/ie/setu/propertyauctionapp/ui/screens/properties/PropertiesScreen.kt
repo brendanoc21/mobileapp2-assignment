@@ -20,7 +20,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import ie.setu.propertyauctionapp.R
 import ie.setu.propertyauctionapp.data.AuctionModel
 import ie.setu.propertyauctionapp.data.fakeAuctions
-import ie.setu.propertyauctionapp.navigation.Properties
 import ie.setu.propertyauctionapp.ui.components.general.Centre
 import ie.setu.propertyauctionapp.ui.components.properties.PropertiesText
 import ie.setu.propertyauctionapp.ui.components.properties.PropertyCardList
@@ -28,7 +27,9 @@ import ie.setu.propertyauctionapp.ui.theme.PropertyAuctionAppTheme
 
 @Composable
 fun PropertiesScreen(modifier: Modifier = Modifier,
-                 propertiesViewModel: PropertiesViewModel = hiltViewModel()) {
+                     propertiesViewModel: PropertiesViewModel = hiltViewModel(),
+                     onClickPropertyDetails: (Int) -> Unit,
+) {
 
     val auctions = propertiesViewModel.uiAuctions.collectAsState().value
 
@@ -52,7 +53,12 @@ fun PropertiesScreen(modifier: Modifier = Modifier,
                 }
             else {
                 PropertyCardList(
-                    auctions = auctions
+                    auctions = auctions,
+                    onClickPropertyDetails = onClickPropertyDetails,
+                    onDeleteProperty = {
+                            auction: AuctionModel ->
+                        propertiesViewModel.deleteProperty(auction)
+                    }
                 )
             }
         }
@@ -94,8 +100,10 @@ fun PreviewPropertiesScreen(modifier: Modifier = Modifier,
                 }
             else
                 PropertyCardList(
-                    auctions = auctions
-                )
+                    auctions = auctions,
+                    onDeleteProperty = {},
+                    onClickPropertyDetails = {},
+                    )
         }
     }
 }

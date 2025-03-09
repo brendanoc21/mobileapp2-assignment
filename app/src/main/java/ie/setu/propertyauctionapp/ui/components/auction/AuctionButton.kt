@@ -49,7 +49,7 @@ fun AuctionButton(
 ) {
     val auctions = propertiesViewModel.uiAuctions.collectAsState().value
 
-    var totalAuctioned by remember { mutableIntStateOf(0) }
+    var totalAuctioned = auctions.sumOf { it.priceAmount }
     val context = LocalContext.current
     val message = stringResource(R.string.limitExceeded,auction.priceAmount)
 

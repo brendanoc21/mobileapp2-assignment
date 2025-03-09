@@ -19,4 +19,6 @@
     <string name="empty_list">No Auctions Yet - Please submit a Property.</string>
     <string name="about_title">Welcome to the Property Auction App!</string>
     <string name="about_message">You can use this app \n to submit properties for auctioning.\n\n Please ensure you follow the \n rules and regulations.</string>
+    <string name="confirm_delete">Confirm Delete?</string>
+    <string name="confirm_delete_message">Are you sure you want to delete this property?</string>
 </resources>

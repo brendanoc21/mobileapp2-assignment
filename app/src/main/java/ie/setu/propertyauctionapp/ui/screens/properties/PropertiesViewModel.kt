@@ -19,6 +19,12 @@ constructor(private val repository: RoomRepository) : ViewModel() {
     val uiAuctions: StateFlow<List<AuctionModel>>
             = _auctions.asStateFlow()
 
+    fun deleteProperty(auction: AuctionModel) {
+        viewModelScope.launch {
+            repository.delete(auction)
+        }
+    }
+
     init {
         viewModelScope.launch {
             repository.getAll().collect { listOfAuctions ->

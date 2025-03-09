@@ -11,7 +11,7 @@ data class AuctionModel(
     val id: Int = 0,
     val propertyType: String = "N/A",
     val priceAmount: Int = 0,
-    val details: String = "Local Property",
+    var details: String = "Local Property",
     val dateAuctioned: Date = Date()
 )
 

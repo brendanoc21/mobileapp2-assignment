@@ -10,11 +10,13 @@ constructor(private val auctionDAO: AuctionDAO) {
     fun getAll(): Flow<List<AuctionModel>>
             = auctionDAO.getAll()
 
+    fun get(id: Int) = auctionDAO.get(id)
+
     suspend fun insert(donation: AuctionModel)
     { auctionDAO.insert(donation) }
 
-    suspend fun update(donation: AuctionModel)
-    { auctionDAO.update(donation) }
+    suspend fun update(auction: AuctionModel)
+    { auctionDAO.update(auction.id,auction.details) }
 
     suspend fun delete(donation: AuctionModel)
     { auctionDAO.delete(donation) }

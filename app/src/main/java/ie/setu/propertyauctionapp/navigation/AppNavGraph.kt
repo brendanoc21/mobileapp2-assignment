@@ -11,6 +11,7 @@ import androidx.navigation.compose.composable
 import ie.setu.propertyauctionapp.data.AuctionModel
 import ie.setu.propertyauctionapp.ui.screens.about.AboutScreen
 import ie.setu.propertyauctionapp.ui.screens.auction.AuctionScreen
+import ie.setu.propertyauctionapp.ui.screens.details.DetailsScreen
 import ie.setu.propertyauctionapp.ui.screens.properties.PropertiesScreen
 
 @Composable
@@ -31,11 +32,31 @@ fun NavHostProvider(
         }
         composable(route = Properties.route) {
             //call our 'Properties' Screen Here
-            PropertiesScreen(modifier = modifier)
+            PropertiesScreen(modifier = modifier,
+                onClickPropertyDetails = {
+                        auctionId : Int ->
+                    navController.navigateToPropertyDetails(auctionId)
+                },
+            )
         }
         composable(route = About.route) {
             //call our 'About' Screen Here
             AboutScreen(modifier = modifier)
         }
+        composable(
+            route = Details.route,
+            arguments = Details.arguments
+        )
+        { navBackStackEntry ->
+            val id = navBackStackEntry.arguments?.getInt(Details.idArg)
+            if (id != null) {
+                DetailsScreen()
+            }
+        }
+
     }
+}
+
+private fun NavHostController.navigateToPropertyDetails(auctionId: Int) {
+    this.navigate("details/$auctionId")
 }

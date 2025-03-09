@@ -13,11 +13,14 @@ interface AuctionDAO {
     @Query("SELECT * FROM auctionmodel")
     fun getAll(): Flow<List<AuctionModel>>
 
+    @Query("SELECT * FROM auctionmodel WHERE id=:id")
+    fun get(id: Int): Flow<AuctionModel>
+
     @Insert
     suspend fun insert(auction: AuctionModel)
 
-    @Update
-    suspend fun update(auction: AuctionModel)
+    @Query("UPDATE auctionmodel SET details=:details WHERE id = :id")
+    suspend fun update(id: Int, details:String)
 
     @Delete
     suspend fun delete(auction: AuctionModel)
