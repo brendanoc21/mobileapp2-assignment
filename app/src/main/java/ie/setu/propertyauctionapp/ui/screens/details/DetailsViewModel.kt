@@ -6,28 +6,50 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ie.setu.propertyauctionapp.data.AuctionModel
+import ie.setu.propertyauctionapp.data.api.RetrofitRepository
 import ie.setu.propertyauctionapp.data.repository.RoomRepository
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class DetailsViewModel @Inject
-constructor(private val repository: RoomRepository,
+constructor(private val repository: RetrofitRepository,
             savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     var auction = mutableStateOf(AuctionModel())
-    val id: Int = checkNotNull(savedStateHandle["id"])
+    val id: String = checkNotNull(savedStateHandle["id"])
+    var isErr = mutableStateOf(false)
+    var error = mutableStateOf(Exception())
+    var isLoading = mutableStateOf(false)
 
     init {
         viewModelScope.launch {
-            repository.get(id).collect { objAuction ->
-                auction.value = objAuction
+            try {
+                isLoading.value = true
+                auction.value = repository.get(id)[0]
+                isErr.value = false
+                isLoading.value = false
+            } catch (e: Exception) {
+                isErr.value = true
+                error.value = e
+                isLoading.value = false
             }
         }
     }
 
     fun updateAuction(auction: AuctionModel) {
-        viewModelScope.launch { repository.update(auction) }
+        viewModelScope.launch {
+            try {
+                isLoading.value = true
+                repository.update(auction)
+                isErr.value = false
+                isLoading.value = false
+            } catch (e: Exception) {
+                isErr.value = true
+                error.value = e
+                isLoading.value = false
+            }
+        }
     }
 }

@@ -32,9 +32,10 @@ fun NavHostProvider(
         }
         composable(route = Properties.route) {
             //call our 'Properties' Screen Here
-            PropertiesScreen(modifier = modifier,
+            PropertiesScreen(
+                modifier = modifier,
                 onClickPropertyDetails = {
-                        auctionId : Int ->
+                        auctionId : String ->
                     navController.navigateToPropertyDetails(auctionId)
                 },
             )
@@ -57,6 +58,6 @@ fun NavHostProvider(
     }
 }
 
-private fun NavHostController.navigateToPropertyDetails(auctionId: Int) {
+private fun NavHostController.navigateToPropertyDetails(auctionId: String) {
     this.navigate("details/$auctionId")
 }

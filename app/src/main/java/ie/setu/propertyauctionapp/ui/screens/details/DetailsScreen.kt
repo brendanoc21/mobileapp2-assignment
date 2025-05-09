@@ -1,6 +1,7 @@
 package ie.setu.propertyauctionapp.ui.screens.details
 
 import android.annotation.SuppressLint
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -29,6 +30,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -37,6 +39,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import ie.setu.propertyauctionapp.R
 import ie.setu.propertyauctionapp.ui.components.details.DetailsScreenText
 import ie.setu.propertyauctionapp.ui.components.details.ReadOnlyTextField
+import ie.setu.propertyauctionapp.ui.components.general.ShowLoader
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -53,11 +56,23 @@ fun DetailsScreen(
     var isEmptyError by rememberSaveable { mutableStateOf(false) }
     var isShortError by rememberSaveable { mutableStateOf(false) }
 
+    val context = LocalContext.current
+    val isError = detailViewModel.isErr.value
+    val error = detailViewModel.error.value
+    val isLoading = detailViewModel.isLoading.value
+
+    if(isLoading) ShowLoader("Retrieving Property Details...")
+
     fun validate(text: String) {
         isEmptyError = text.isEmpty()
         isShortError = text.length < 2
         onDetailsChanged = !(isEmptyError || isShortError)
     }
+
+    if(isError)
+        Toast.makeText(context,"Unable to fetch Details at this Time...",
+            Toast.LENGTH_SHORT).show()
+    if(!isError && !isLoading)
 
     Column(modifier = modifier.padding(
         start = 24.dp,

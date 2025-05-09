@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.runtime.toMutableStateList
@@ -21,17 +22,28 @@ import ie.setu.propertyauctionapp.R
 import ie.setu.propertyauctionapp.data.AuctionModel
 import ie.setu.propertyauctionapp.data.fakeAuctions
 import ie.setu.propertyauctionapp.ui.components.general.Centre
+import ie.setu.propertyauctionapp.ui.components.general.ShowError
+import ie.setu.propertyauctionapp.ui.components.general.ShowLoader
+import ie.setu.propertyauctionapp.ui.components.general.ShowRefreshList
 import ie.setu.propertyauctionapp.ui.components.properties.PropertiesText
 import ie.setu.propertyauctionapp.ui.components.properties.PropertyCardList
 import ie.setu.propertyauctionapp.ui.theme.PropertyAuctionAppTheme
 
 @Composable
-fun PropertiesScreen(modifier: Modifier = Modifier,
-                     propertiesViewModel: PropertiesViewModel = hiltViewModel(),
-                     onClickPropertyDetails: (Int) -> Unit,
+fun PropertiesScreen(
+    modifier: Modifier = Modifier,
+    propertiesViewModel: PropertiesViewModel = hiltViewModel(),
+    onClickPropertyDetails: (String) -> Unit,
 ) {
 
     val auctions = propertiesViewModel.uiAuctions.collectAsState().value
+    val isError = propertiesViewModel.isErr.value
+    val isLoading = propertiesViewModel.isLoading.value
+    val error = propertiesViewModel.error.value
+
+    LaunchedEffect(Unit) {
+        propertiesViewModel.getAuctions()
+    }
 
     Column {
         Column(
@@ -40,9 +52,12 @@ fun PropertiesScreen(modifier: Modifier = Modifier,
                 end = 24.dp
             ),
             ) {
+            if(isLoading) ShowLoader("Loading Properties...")
             PropertiesText()
-            if(auctions.isEmpty())
-                Centre(Modifier.fillMaxSize()) {
+            if(!isError)
+                ShowRefreshList(onClick = { propertiesViewModel.getAuctions() })
+            if (auctions.isEmpty() && !isError)
+            Centre(Modifier.fillMaxSize()) {
                     Text(color = MaterialTheme.colorScheme.secondary,
                         fontWeight = FontWeight.Bold,
                         fontSize = 30.sp,
@@ -51,15 +66,21 @@ fun PropertiesScreen(modifier: Modifier = Modifier,
                         text = stringResource(R.string.empty_list)
                     )
                 }
-            else {
+            if (!isError) {
                 PropertyCardList(
                     auctions = auctions,
                     onClickPropertyDetails = onClickPropertyDetails,
                     onDeleteProperty = {
                             auction: AuctionModel ->
-                        propertiesViewModel.deleteProperty(auction)
-                    }
+                        propertiesViewModel.deleteAuction(auction)
+                    },
+                    onRefreshList = { propertiesViewModel.getAuctions() }
                 )
+            }
+            if (isError) {
+                ShowError(headline = error.message!! + " error...",
+                    subtitle = error.toString(),
+                    onClick = { propertiesViewModel.getAuctions() })
             }
         }
     }
@@ -103,6 +124,7 @@ fun PreviewPropertiesScreen(modifier: Modifier = Modifier,
                     auctions = auctions,
                     onDeleteProperty = {},
                     onClickPropertyDetails = {},
+                    onRefreshList = {},
                     )
         }
     }
