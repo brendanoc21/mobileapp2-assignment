@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.hilt.android)
     alias(libs.plugins.kotlin.android.ksp)
+    alias(libs.plugins.google.gms.google.services)
 }
 
 android {
@@ -82,4 +83,10 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
     implementation(libs.gson)
+
+    //Google Services
+    implementation(libs.play.services.auth)
+
+    //Firebase
+    implementation(libs.firebase.auth)
 }
