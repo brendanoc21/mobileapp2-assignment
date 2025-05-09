@@ -24,11 +24,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import ie.setu.propertyauctionapp.R
+import ie.setu.propertyauctionapp.navigation.About
 import ie.setu.propertyauctionapp.ui.theme.PropertyAuctionAppTheme
 
 @Composable
-fun DropDownMenu() {
+fun DropDownMenu(navController: NavController) {
 
     var expanded by remember { mutableStateOf(false) }
     var selectedOptionText by remember { mutableStateOf("Help") }
@@ -66,6 +69,7 @@ fun DropDownMenu() {
                 onClick = {
                     selectedOptionText = "Info"
                     expanded = false
+                    navController.navigate(About.route)
                 },
             )
         }
@@ -76,6 +80,6 @@ fun DropDownMenu() {
 @Composable
 fun DropDownMenuPreview() {
     PropertyAuctionAppTheme {
-        DropDownMenu()
+        DropDownMenu(navController = rememberNavController())
     }
 }

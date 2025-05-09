@@ -41,7 +41,7 @@ fun HomeScreen(modifier: Modifier = Modifier,
                                     userSignedOutDestinations
                                 else bottomAppBarDestinations
 
-      if (isActiveSession) startScreen = Report
+      if (isActiveSession) startScreen = Properties
 
     Scaffold(
         modifier = modifier,

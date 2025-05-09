@@ -12,14 +12,19 @@ import ie.setu.propertyauctionapp.data.AuctionModel
 import ie.setu.propertyauctionapp.ui.screens.about.AboutScreen
 import ie.setu.propertyauctionapp.ui.screens.auction.AuctionScreen
 import ie.setu.propertyauctionapp.ui.screens.details.DetailsScreen
+import ie.setu.propertyauctionapp.ui.screens.home.HomeScreen
+import ie.setu.propertyauctionapp.ui.screens.login.LoginScreen
+import ie.setu.propertyauctionapp.ui.screens.profile.ProfileScreen
 import ie.setu.propertyauctionapp.ui.screens.properties.PropertiesScreen
+import ie.setu.propertyauctionapp.ui.screens.register.RegisterScreen
 
 @Composable
 fun NavHostProvider(
     modifier: Modifier,
     navController: NavHostController,
     paddingValues: PaddingValues,
-    auctions: SnapshotStateList<AuctionModel>
+    startDestination: AppDestination,
+    //auctions: SnapshotStateList<AuctionModel>
 ) {
     NavHost(
         navController = navController,
@@ -54,7 +59,34 @@ fun NavHostProvider(
                 DetailsScreen()
             }
         }
-
+        composable(route = Home.route) {
+            //call our 'Home' Screen Here
+            HomeScreen(modifier = modifier)
+        }
+        composable(route = Login.route) {
+            //call our 'Login' Screen Here
+            LoginScreen(
+                navController = navController,
+                onLogin = { navController.popBackStack() }
+            )
+        }
+        composable(route = Register.route) {
+            //call our 'Register' Screen Here
+            RegisterScreen(
+                navController = navController,
+                onRegister = { navController.popBackStack() }
+            )
+        }
+        composable(route = Profile.route) {
+            ProfileScreen(
+                onSignOut = {
+                    navController.popBackStack()
+                    navController.navigate(Login.route) {
+                        popUpTo(Home.route) { inclusive = true }
+                    }
+                },
+            )
+        }
     }
 }
 
