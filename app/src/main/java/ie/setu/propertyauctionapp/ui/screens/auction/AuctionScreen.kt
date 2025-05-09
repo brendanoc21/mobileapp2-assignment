@@ -46,10 +46,10 @@ fun AuctionScreen(modifier: Modifier = Modifier,
     Column {
         Column(
             modifier = modifier.padding(
-                start = 24.dp,
-                end = 24.dp
+                start = 2.dp,
+                end = 2.dp
             ),
-            verticalArrangement = Arrangement.spacedBy(30.dp),
+            verticalArrangement = Arrangement.spacedBy(2.dp),
         ) {
             WelcomeText()
             Row(
@@ -66,7 +66,7 @@ fun AuctionScreen(modifier: Modifier = Modifier,
                 )
             }
             ProgressBar(
-                modifier = modifier.padding(top = 30.dp,bottom = 14.dp),
+                modifier = modifier.padding(top = 2.dp,bottom = 2.dp),
                 totalAuctioned = totalAuctioned)
             DetailsInput(
                 modifier = modifier,

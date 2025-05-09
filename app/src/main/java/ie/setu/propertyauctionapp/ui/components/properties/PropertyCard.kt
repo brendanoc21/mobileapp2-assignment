@@ -46,8 +46,10 @@ fun PropertyCard(
     priceAmount: Int,
     details: String,
     dateCreated: String,
+    dateModified: String,
     onClickDelete: () -> Unit,
-    onClickPropertyDetails: () -> Unit
+    onClickPropertyDetails: () -> Unit,
+    onRefreshList: () -> Unit
 ) {
     Card(
         colors = CardDefaults.cardColors(
@@ -59,8 +61,10 @@ fun PropertyCard(
             priceAmount,
             details,
             dateCreated,
+            dateModified,
             onClickDelete,
-            onClickPropertyDetails
+            onClickPropertyDetails,
+            onRefreshList
         )
     }
 }
@@ -71,8 +75,10 @@ private fun PropertyCardContent(
     priceAmount: Int,
     details: String,
     dateCreated: String,
+    dateModified: String,
     onClickDelete: () -> Unit,
-    onClickPropertyDetails: () -> Unit
+    onClickPropertyDetails: () -> Unit,
+    onRefreshList: () -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
     var showDeleteConfirmDialog by remember { mutableStateOf(false) }
@@ -115,6 +121,9 @@ private fun PropertyCardContent(
             Text(
                 text = "Submitted $dateCreated", style = MaterialTheme.typography.labelSmall
             )
+            Text(
+                text = "Modified $dateModified", style = MaterialTheme.typography.labelSmall
+            )
             if (expanded) {
                 Text(modifier = Modifier.padding(vertical = 16.dp), text = details)
                 Row(modifier = Modifier.fillMaxWidth(),
@@ -131,7 +140,8 @@ private fun PropertyCardContent(
                     if (showDeleteConfirmDialog) {
                         showDeleteAlert(
                             onDismiss = { showDeleteConfirmDialog = false },
-                            onDelete = onClickDelete
+                            onDelete = onClickDelete,
+                            onRefresh = onRefreshList
                         )
                     }
                 }
@@ -153,14 +163,19 @@ private fun PropertyCardContent(
 @Composable
 fun showDeleteAlert(
     onDismiss: () -> Unit,
-    onDelete: () -> Unit) {
+    onDelete: () -> Unit,
+    onRefresh: () -> Unit
+    ) {
     AlertDialog(
         onDismissRequest = onDismiss ,
         title = { Text(stringResource(id = R.string.confirm_delete)) },
         text = { Text(stringResource(id = R.string.confirm_delete_message)) },
         confirmButton = {
             Button(
-                onClick = { onDelete() }
+                onClick = {
+                    onDelete()
+                    onRefresh()
+                }
             ) { Text("Yes") }
         },
         dismissButton = {
@@ -181,8 +196,10 @@ fun PropertyCardPreview() {
                 by the user..."
             """.trimIndent(),
             dateCreated = DateFormat.getDateTimeInstance().format(Date()),
+            dateModified = DateFormat.getDateTimeInstance().format(Date()),
             onClickDelete = { },
-            onClickPropertyDetails = {}
+            onClickPropertyDetails = {},
+            onRefreshList = {}
         )
     }
 }

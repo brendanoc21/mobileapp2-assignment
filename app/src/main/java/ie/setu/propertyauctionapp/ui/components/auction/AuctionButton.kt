@@ -30,6 +30,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import ie.setu.propertyauctionapp.R
 import ie.setu.propertyauctionapp.data.AuctionModel
 import ie.setu.propertyauctionapp.data.fakeAuctions
+import ie.setu.propertyauctionapp.ui.components.general.ShowLoader
 import ie.setu.propertyauctionapp.ui.screens.properties.PropertiesViewModel
 import ie.setu.propertyauctionapp.ui.screens.auction.AuctionViewModel
 import ie.setu.propertyauctionapp.ui.theme.PropertyAuctionAppTheme
@@ -49,6 +50,12 @@ fun AuctionButton(
     val context = LocalContext.current
     val message = stringResource(R.string.limitExceeded,auction.priceAmount)
 
+    val isError = auctionViewModel.isErr.value
+    val error = auctionViewModel.error.value
+    val isLoading = auctionViewModel.isLoading.value
+
+    if(isLoading) ShowLoader("Trying to add Auction...")
+
     Row {
         Button(
             onClick = {
@@ -63,7 +70,7 @@ fun AuctionButton(
                     Toast.makeText(context,message,
                         Toast.LENGTH_SHORT).show()
             },
-            elevation = ButtonDefaults.buttonElevation(20.dp)
+            elevation = ButtonDefaults.buttonElevation(2.dp)
         ) {
             Icon(Icons.Default.Add, contentDescription = stringResource(R.string.auction_button_description))
             Spacer(modifier.width(width = 4.dp))
@@ -100,6 +107,13 @@ fun AuctionButton(
                 }
             })
     }
+    //Required to refresh our 'totalAuctioned'
+    if(isError)
+        Toast.makeText(context,"Unable to add Auction at this Time...",
+            Toast.LENGTH_SHORT).show()
+    else
+        propertiesViewModel.getAuctions()
+
 }
 
 @Preview(showBackground = true)
