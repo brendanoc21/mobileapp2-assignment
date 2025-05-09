@@ -42,8 +42,21 @@ import ie.setu.propertyauctionapp.navigation.allDestinations
 import ie.setu.propertyauctionapp.ui.components.general.BottomAppBarProvider
 import ie.setu.propertyauctionapp.ui.components.general.DropDownMenu
 import ie.setu.propertyauctionapp.ui.components.general.MenuItem
+import ie.setu.propertyauctionapp.ui.screens.home.HomeScreen
 import ie.setu.propertyauctionapp.ui.theme.PropertyAuctionAppTheme
+import androidx.activity.enableEdgeToEdge
 
+@AndroidEntryPoint
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContent {
+            PropertyAuctionAppTheme { HomeScreen() }
+        }
+    }
+}
+/*
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -147,3 +160,4 @@ fun TopAppBarPreview() {
             true)
     }
 }
+*/
