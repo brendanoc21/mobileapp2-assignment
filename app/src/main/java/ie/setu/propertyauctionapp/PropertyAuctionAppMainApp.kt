@@ -1,4 +1,4 @@
-package ie.setu.propertyauctionapp.main
+package ie.setu.propertyauctionapp
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

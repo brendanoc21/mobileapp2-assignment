@@ -11,11 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PropertyAuctionApp"
-        android:name="ie.setu.propertyauctionapp.main.PropertyAuctionAppMainApp"
+        android:name="ie.setu.propertyauctionapp.PropertyAuctionAppMainApp"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".PropertyAuctionAppMainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.PropertyAuctionApp">

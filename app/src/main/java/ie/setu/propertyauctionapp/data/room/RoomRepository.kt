@@ -1,7 +1,6 @@
-package ie.setu.propertyauctionapp.data.repository
+package ie.setu.propertyauctionapp.data.room
 
-import ie.setu.propertyauctionapp.data.AuctionModel
-import ie.setu.propertyauctionapp.data.room.AuctionDAO
+import ie.setu.propertyauctionapp.data.model.AuctionModel
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

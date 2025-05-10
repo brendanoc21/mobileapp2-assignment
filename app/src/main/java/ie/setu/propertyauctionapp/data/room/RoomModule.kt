@@ -1,4 +1,4 @@
-package ie.setu.propertyauctionapp.data.repository
+package ie.setu.propertyauctionapp.data.room
 
 import android.content.Context
 import androidx.room.Room
@@ -7,8 +7,6 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import ie.setu.propertyauctionapp.data.room.AppDatabase
-import ie.setu.propertyauctionapp.data.room.AuctionDAO
 import javax.inject.Singleton
 
 @Module

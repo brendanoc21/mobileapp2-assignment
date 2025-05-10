@@ -5,9 +5,8 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import ie.setu.propertyauctionapp.data.AuctionModel
+import ie.setu.propertyauctionapp.data.model.AuctionModel
 import ie.setu.propertyauctionapp.data.api.RetrofitRepository
-import ie.setu.propertyauctionapp.data.repository.RoomRepository
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

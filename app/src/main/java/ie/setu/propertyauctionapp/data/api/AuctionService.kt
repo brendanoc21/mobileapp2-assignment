@@ -1,6 +1,6 @@
 package ie.setu.propertyauctionapp.data.api
 
-import ie.setu.propertyauctionapp.data.AuctionModel
+import ie.setu.propertyauctionapp.data.model.AuctionModel
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE

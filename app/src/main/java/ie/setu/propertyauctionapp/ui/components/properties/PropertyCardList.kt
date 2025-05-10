@@ -7,8 +7,8 @@ import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.Wallpapers
-import ie.setu.propertyauctionapp.data.AuctionModel
-import ie.setu.propertyauctionapp.data.fakeAuctions
+import ie.setu.propertyauctionapp.data.model.AuctionModel
+import ie.setu.propertyauctionapp.data.model.fakeAuctions
 import ie.setu.propertyauctionapp.ui.theme.PropertyAuctionAppTheme
 import java.text.DateFormat
 
