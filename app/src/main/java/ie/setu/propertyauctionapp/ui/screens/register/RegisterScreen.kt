@@ -55,9 +55,9 @@ fun RegisterScreen(
             Column(modifier = Modifier.fillMaxSize()) {
 
                 HeadingTextComponent(value = stringResource(id = R.string.create_account))
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(4.dp))
                 HeadingLogoComponent()
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(4.dp))
                 MyTextFieldComponent(
                     labelValue = stringResource(id = R.string.first_name),
                     painterResource(id = R.drawable.profile),
@@ -89,7 +89,7 @@ fun RegisterScreen(
                     }
                 )
 
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(4.dp))
                 ButtonComponent(
                     value = stringResource(id = R.string.register),
                     onButtonClicked = {
@@ -98,7 +98,7 @@ fun RegisterScreen(
                     },
                     isEnabled = registerViewModel.allValidationsPassed.value
                 )
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(4.dp))
             }
         }
 

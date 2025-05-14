@@ -71,6 +71,6 @@ object Register : AppDestination {
     override val route = "Register"
 }
 
-val bottomAppBarDestinations = listOf(Auction, Properties, About)
+val bottomAppBarDestinations = listOf(Auction, Properties, About, Profile)
 val userSignedOutDestinations = listOf(Login, Register)
-val allDestinations = listOf(Properties, Auction, About, Details)
+val allDestinations = listOf(Properties, Auction, About, Details, Profile, Login, Register)
