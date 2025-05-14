@@ -26,7 +26,7 @@ fun NavHostProvider(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Properties.route,
+        startDestination = startDestination.route,
         modifier = Modifier.padding(paddingValues = paddingValues)) {
 
         composable(route = Auction.route) {

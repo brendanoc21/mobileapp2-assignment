@@ -28,7 +28,7 @@ object Properties : AppDestination {
 object Auction : AppDestination {
     override val icon = Icons.Filled.AddCircle
     override val label = "Auction"
-    override val route = "Auction"
+    override val route = "auction"
 }
 
 object About : AppDestination {
@@ -73,4 +73,4 @@ object Register : AppDestination {
 
 val bottomAppBarDestinations = listOf(Auction, Properties, About, Profile)
 val userSignedOutDestinations = listOf(Login, Register)
-val allDestinations = listOf(Properties, Auction, About, Details, Profile, Login, Register)
+val allDestinations = listOf(Properties, Auction, About, Details, Profile, Login, Register, Home)
