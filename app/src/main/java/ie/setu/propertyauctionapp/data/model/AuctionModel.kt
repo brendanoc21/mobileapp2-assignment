@@ -1,10 +1,9 @@
-package ie.setu.propertyauctionapp.data
+package ie.setu.propertyauctionapp.data.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import java.util.Date
-import kotlin.random.Random
 
 @Entity
 data class AuctionModel(
@@ -19,7 +18,8 @@ data class AuctionModel(
     @SerializedName("dateauctioned")
     val dateAuctioned: Date = Date(),
     @SerializedName("datemodified")
-    val dateModified: Date = Date()
+    val dateModified: Date = Date(),
+    var email: String = "joe@bloggs.com"
 )
 
 val fakeAuctions = List(30) { i ->

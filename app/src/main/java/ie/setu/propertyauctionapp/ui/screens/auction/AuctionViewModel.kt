@@ -4,15 +4,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import ie.setu.propertyauctionapp.data.AuctionModel
+import ie.setu.propertyauctionapp.data.model.AuctionModel
 import ie.setu.propertyauctionapp.data.api.RetrofitRepository
-import ie.setu.propertyauctionapp.data.repository.RoomRepository
+import ie.setu.propertyauctionapp.firebase.services.AuthService
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class AuctionViewModel @Inject
-constructor(private val repository: RetrofitRepository)
+constructor(private val repository: RetrofitRepository, private val authService: AuthService)
     : ViewModel() {
     var isErr = mutableStateOf(false)
     var error = mutableStateOf(Exception())
@@ -27,7 +27,7 @@ constructor(private val repository: RetrofitRepository)
         viewModelScope.launch {
             try {
                 isLoading.value = true
-                repository.insert(auction)
+                repository.insert(authService.email!!,auction)
                 isErr.value = false
                 isLoading.value = false
             } catch (e: Exception) {

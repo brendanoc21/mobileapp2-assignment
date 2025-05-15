@@ -13,9 +13,10 @@
         android:theme="@style/Theme.PropertyAuctionApp"
         android:name="ie.setu.propertyauctionapp.main.PropertyAuctionAppMainApp"
         android:usesCleartextTraffic="true"
+        android:enableOnBackInvokedCallback="true"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".PropertyAuctionAppMainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.PropertyAuctionApp">

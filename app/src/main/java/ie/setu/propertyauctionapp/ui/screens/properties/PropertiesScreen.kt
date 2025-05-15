@@ -19,8 +19,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import ie.setu.propertyauctionapp.R
-import ie.setu.propertyauctionapp.data.AuctionModel
-import ie.setu.propertyauctionapp.data.fakeAuctions
+import ie.setu.propertyauctionapp.data.model.AuctionModel
+import ie.setu.propertyauctionapp.data.model.fakeAuctions
 import ie.setu.propertyauctionapp.ui.components.general.Centre
 import ie.setu.propertyauctionapp.ui.components.general.ShowError
 import ie.setu.propertyauctionapp.ui.components.general.ShowLoader
