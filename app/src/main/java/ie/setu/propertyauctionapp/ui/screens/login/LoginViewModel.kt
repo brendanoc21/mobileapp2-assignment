@@ -45,6 +45,13 @@ class LoginViewModel @Inject constructor(
         _loginFlow.value = result
     }
 
+    private fun loginGoogleUser(googleIdToken: String) = viewModelScope.launch {
+
+        _loginFlow.value = Response.Loading
+        val result = authService.authenticateGoogleUser(googleIdToken)
+        _loginFlow.value = result
+    }
+
     fun onEvent(event: LoginUIEvent) {
         when (event) {
             is LoginUIEvent.EmailChanged -> {
