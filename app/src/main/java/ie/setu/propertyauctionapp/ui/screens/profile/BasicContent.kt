@@ -11,7 +11,8 @@ import ie.setu.propertyauctionapp.ui.components.general.HeadingLogoComponent
 
 @Composable
 fun BasicContent(
-    displayName: String
+    displayName: String,
+    email: String
 ) {
     Column(
         modifier = Modifier.fillMaxWidth().padding(4.dp),
@@ -25,6 +26,11 @@ fun BasicContent(
         Text(
             text = displayName,
             fontSize = 24.sp
+        )
+        Spacer(modifier = Modifier.height(5.dp))
+        Text(
+            text = email,
+            fontSize = 20.sp,
         )
     }
 }

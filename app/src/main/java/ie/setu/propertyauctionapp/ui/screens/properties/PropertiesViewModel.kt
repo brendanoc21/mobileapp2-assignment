@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ie.setu.propertyauctionapp.data.model.AuctionModel
 import ie.setu.propertyauctionapp.data.api.RetrofitRepository
+import ie.setu.propertyauctionapp.firebase.services.AuthService
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -15,7 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PropertiesViewModel @Inject
-constructor(private val repository: RetrofitRepository) : ViewModel(){
+constructor(private val repository: RetrofitRepository, private val authService: AuthService) : ViewModel(){
     private val _auctions
             = MutableStateFlow<List<AuctionModel>>(emptyList())
     val uiAuctions: StateFlow<List<AuctionModel>>
@@ -38,7 +39,7 @@ constructor(private val repository: RetrofitRepository) : ViewModel(){
         viewModelScope.launch {
             try {
                 isLoading.value = true
-                _auctions.value = repository.getAll()
+                _auctions.value = repository.getAll(authService.email!!)
                 isErr.value = false
                 isLoading.value = false
             }
@@ -53,7 +54,7 @@ constructor(private val repository: RetrofitRepository) : ViewModel(){
 
     fun deleteAuction(auction: AuctionModel) {
         viewModelScope.launch {
-               repository.delete(auction)
+            repository.delete(authService.email!!,auction)
         }
     }
 }
