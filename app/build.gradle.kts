@@ -89,4 +89,7 @@ dependencies {
 
     //Firebase
     implementation(libs.firebase.auth)
+
+    //Firebase
+    implementation(libs.firebase.firestore)
 }
