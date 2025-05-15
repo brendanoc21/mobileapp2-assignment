@@ -17,8 +17,7 @@ internal fun PropertyCardList(
     auctions: List<AuctionModel>,
     modifier: Modifier = Modifier,
     onDeleteProperty: (AuctionModel) -> Unit,
-    onClickPropertyDetails: (String) -> Unit,
-    onRefreshList: () -> Unit
+    onClickPropertyDetails: (String) -> Unit
 ) {
     LazyColumn {
         items(
@@ -32,8 +31,8 @@ internal fun PropertyCardList(
                 dateCreated = DateFormat.getDateTimeInstance().format(auction.dateAuctioned),
                 dateModified = DateFormat.getDateTimeInstance().format(auction.dateModified),
                 onClickDelete = { onDeleteProperty(auction) },
-                onClickPropertyDetails = { onClickPropertyDetails(auction._id) },
-                onRefreshList = onRefreshList
+                onClickPropertyDetails = { onClickPropertyDetails(auction._id) }
+                //onRefreshList = onRefreshList
             )
         }
     }
@@ -48,8 +47,7 @@ fun PropertyCardListPreview() {
         PropertyCardList(
             fakeAuctions.toMutableStateList(),
             onDeleteProperty = {},
-            onClickPropertyDetails = {},
-            onRefreshList = {}
+            onClickPropertyDetails = {}
         )
     }
 }

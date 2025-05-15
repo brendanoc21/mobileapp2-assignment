@@ -7,12 +7,14 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import ie.setu.propertyauctionapp.data.model.AuctionModel
 import ie.setu.propertyauctionapp.data.api.RetrofitRepository
 import ie.setu.propertyauctionapp.firebase.services.AuthService
+import ie.setu.propertyauctionapp.firebase.services.FirestoreService
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class AuctionViewModel @Inject
-constructor(private val repository: RetrofitRepository, private val authService: AuthService)
+constructor(private val repository: FirestoreService,
+            private val authService: AuthService)
     : ViewModel() {
     var isErr = mutableStateOf(false)
     var error = mutableStateOf(Exception())

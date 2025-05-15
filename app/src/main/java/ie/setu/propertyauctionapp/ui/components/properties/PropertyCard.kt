@@ -48,8 +48,7 @@ fun PropertyCard(
     dateCreated: String,
     dateModified: String,
     onClickDelete: () -> Unit,
-    onClickPropertyDetails: () -> Unit,
-    onRefreshList: () -> Unit
+    onClickPropertyDetails: () -> Unit
 ) {
     Card(
         colors = CardDefaults.cardColors(
@@ -63,8 +62,8 @@ fun PropertyCard(
             dateCreated,
             dateModified,
             onClickDelete,
-            onClickPropertyDetails,
-            onRefreshList
+            onClickPropertyDetails
+            //onRefreshList
         )
     }
 }
@@ -77,8 +76,7 @@ private fun PropertyCardContent(
     dateCreated: String,
     dateModified: String,
     onClickDelete: () -> Unit,
-    onClickPropertyDetails: () -> Unit,
-    onRefreshList: () -> Unit
+    onClickPropertyDetails: () -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
     var showDeleteConfirmDialog by remember { mutableStateOf(false) }
@@ -140,8 +138,8 @@ private fun PropertyCardContent(
                     if (showDeleteConfirmDialog) {
                         showDeleteAlert(
                             onDismiss = { showDeleteConfirmDialog = false },
-                            onDelete = onClickDelete,
-                            onRefresh = onRefreshList
+                            onDelete = onClickDelete
+                            //onRefresh = onRefreshList
                         )
                     }
                 }
@@ -163,8 +161,7 @@ private fun PropertyCardContent(
 @Composable
 fun showDeleteAlert(
     onDismiss: () -> Unit,
-    onDelete: () -> Unit,
-    onRefresh: () -> Unit
+    onDelete: () -> Unit
     ) {
     AlertDialog(
         onDismissRequest = onDismiss ,
@@ -174,7 +171,7 @@ fun showDeleteAlert(
             Button(
                 onClick = {
                     onDelete()
-                    onRefresh()
+                    //onRefresh()
                 }
             ) { Text("Yes") }
         },
@@ -198,8 +195,7 @@ fun PropertyCardPreview() {
             dateCreated = DateFormat.getDateTimeInstance().format(Date()),
             dateModified = DateFormat.getDateTimeInstance().format(Date()),
             onClickDelete = { },
-            onClickPropertyDetails = {},
-            onRefreshList = {}
+            onClickPropertyDetails = {}
         )
     }
 }

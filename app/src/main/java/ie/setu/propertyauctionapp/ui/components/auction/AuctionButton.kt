@@ -52,9 +52,9 @@ fun AuctionButton(
 
     val isError = auctionViewModel.isErr.value
     val error = auctionViewModel.error.value
-    val isLoading = auctionViewModel.isLoading.value
+    //val isLoading = auctionViewModel.isLoading.value
 
-    if(isLoading) ShowLoader("Trying to add Auction...")
+    //if(isLoading) ShowLoader("Trying to add Auction...")
 
     Row {
         Button(
@@ -109,10 +109,10 @@ fun AuctionButton(
     }
     //Required to refresh our 'totalAuctioned'
     if(isError)
-        Toast.makeText(context,"Unable to add Auction at this Time...",
+        Toast.makeText(context,"Unable to add Property at this Time...",
             Toast.LENGTH_SHORT).show()
-    else
-        propertiesViewModel.getAuctions()
+    //else
+    //    propertiesViewModel.getAuctions()
 
 }
 

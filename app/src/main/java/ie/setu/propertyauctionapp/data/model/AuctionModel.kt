@@ -2,6 +2,7 @@ package ie.setu.propertyauctionapp.data.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.firebase.firestore.DocumentId
 import com.google.gson.annotations.SerializedName
 import java.util.Date
 
@@ -9,7 +10,7 @@ import java.util.Date
 data class AuctionModel(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
-    val _id: String = "N/A",
+    @DocumentId val _id: String = "N/A",
     @SerializedName("propertytype")
     val propertyType: String = "N/A",
     @SerializedName("priceamount")
