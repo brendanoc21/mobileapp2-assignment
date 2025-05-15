@@ -18,7 +18,8 @@ data class AuctionModel(
     @SerializedName("dateauctioned")
     val dateAuctioned: Date = Date(),
     @SerializedName("datemodified")
-    val dateModified: Date = Date()
+    val dateModified: Date = Date(),
+    var email: String = "joe@bloggs.com"
 )
 
 val fakeAuctions = List(30) { i ->

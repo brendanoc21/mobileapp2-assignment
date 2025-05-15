@@ -8,42 +8,42 @@ import javax.inject.Inject
 class RetrofitRepository @Inject
 constructor(private val serviceApi: AuctionService)  {
 
-    suspend fun getAll(): List<AuctionModel>
+    suspend fun getAll(email: String): List<AuctionModel>
     {
         return withContext(Dispatchers.IO) {
-            val auctions = serviceApi.getall()
+            val auctions = serviceApi.getall(email)
             auctions.body() ?: emptyList()
         }
     }
 
-    suspend fun get(id: String): List<AuctionModel>
+    suspend fun get(email: String, id: String): List<AuctionModel>
     {
         return withContext(Dispatchers.IO) {
-            val auction = serviceApi.get(id)
+            val auction = serviceApi.get(email,id)
             auction.body() ?: emptyList()
         }
     }
 
-    suspend fun insert(auction: AuctionModel) : AuctionWrapper
+    suspend fun insert(email: String, auction: AuctionModel) : AuctionWrapper
     {
         return withContext(Dispatchers.IO) {
-            val wrapper = serviceApi.post(auction)
+            val wrapper = serviceApi.post(email, auction)
             wrapper
         }
     }
 
-    suspend fun update(auction: AuctionModel) : AuctionWrapper
+    suspend fun update(email: String, auction: AuctionModel) : AuctionWrapper
     {
         return withContext(Dispatchers.IO) {
-            val wrapper = serviceApi.put(auction._id,auction)
+            val wrapper = serviceApi.put(email, auction._id,auction)
             wrapper
         }
     }
 
-    suspend fun delete(auction: AuctionModel) : AuctionWrapper
+    suspend fun delete(email: String, auction: AuctionModel) : AuctionWrapper
     {
         return withContext(Dispatchers.IO) {
-            val wrapper = serviceApi.delete(auction._id)
+            val wrapper = serviceApi.delete(email, auction._id)
             wrapper
         }
     }

@@ -10,20 +10,28 @@ import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface AuctionService {
-    @GET(ServiceEndPoints.AUCTIONS_ENDPOINT)
-    suspend fun getall(): Response<List<AuctionModel>>
 
-    @GET(ServiceEndPoints.AUCTIONS_ENDPOINT + "/{id}")
-    suspend fun get(@Path("id") id: String): Response<List<AuctionModel>>
+    @GET(ServiceEndPoints.AUCTIONS_ENDPOINT + "/{email}")
+    suspend fun getall(
+        @Path("email") email: String)
+            : Response<List<AuctionModel>>
 
-    @DELETE(ServiceEndPoints.AUCTIONS_ENDPOINT + "/{id}")
-    suspend fun delete(@Path("id") id: String): AuctionWrapper
+    @GET(ServiceEndPoints.AUCTIONS_ENDPOINT + "/{email}" + "/{id}")
+    suspend fun get(@Path("email") email: String,
+                    @Path("id") id: String): Response<List<AuctionModel>>
 
-    @POST(ServiceEndPoints.AUCTIONS_ENDPOINT)
-    suspend fun post(@Body auction: AuctionModel): AuctionWrapper
+    @DELETE(ServiceEndPoints.AUCTIONS_ENDPOINT + "/{email}" + "/{id}")
+    suspend fun delete(@Path("email") email: String,
+                       @Path("id") id: String): AuctionWrapper
 
-    @PUT(ServiceEndPoints.AUCTIONS_ENDPOINT + "/{id}")
-    suspend fun put(@Path("id") id: String,
+    @POST(ServiceEndPoints.AUCTIONS_ENDPOINT + "/{email}")
+    suspend fun post(@Path("email") email: String,
+                     @Body auction: AuctionModel): AuctionWrapper
+
+    @PUT(ServiceEndPoints.AUCTIONS_ENDPOINT + "/{email}" + "/{id}")
+    suspend fun put(@Path("email") email: String,
+                    @Path("id") id: String,
                     @Body auction: AuctionModel
     ): AuctionWrapper
 }
+
