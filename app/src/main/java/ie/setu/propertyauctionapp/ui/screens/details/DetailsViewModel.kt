@@ -8,12 +8,14 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import ie.setu.propertyauctionapp.data.model.AuctionModel
 import ie.setu.propertyauctionapp.data.api.RetrofitRepository
 import ie.setu.propertyauctionapp.firebase.services.AuthService
+import ie.setu.propertyauctionapp.firebase.services.FirestoreService
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class DetailsViewModel @Inject
-constructor(private val repository: RetrofitRepository, private val authService: AuthService,
+constructor(private val repository: FirestoreService,
+            private val authService: AuthService,
             savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
@@ -27,7 +29,7 @@ constructor(private val repository: RetrofitRepository, private val authService:
         viewModelScope.launch {
             try {
                 isLoading.value = true
-                auction.value = repository.get(authService.email!!,id)[0]
+                auction.value = repository.get(authService.email!!,id)!!
                 isErr.value = false
                 isLoading.value = false
             } catch (e: Exception) {

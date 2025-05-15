@@ -41,9 +41,9 @@ fun PropertiesScreen(
     val isLoading = propertiesViewModel.isLoading.value
     val error = propertiesViewModel.error.value
 
-    LaunchedEffect(Unit) {
-        propertiesViewModel.getAuctions()
-    }
+    //LaunchedEffect(Unit) {
+    //    propertiesViewModel.getAuctions()
+    //}
 
     Column {
         Column(
@@ -54,8 +54,8 @@ fun PropertiesScreen(
             ) {
             if(isLoading) ShowLoader("Loading Properties...")
             PropertiesText()
-            if(!isError)
-                ShowRefreshList(onClick = { propertiesViewModel.getAuctions() })
+            //if(!isError)
+            //   ShowRefreshList(onClick = { propertiesViewModel.getAuctions() })
             if (auctions.isEmpty() && !isError)
             Centre(Modifier.fillMaxSize()) {
                     Text(color = MaterialTheme.colorScheme.secondary,
@@ -74,7 +74,7 @@ fun PropertiesScreen(
                             auction: AuctionModel ->
                         propertiesViewModel.deleteAuction(auction)
                     },
-                    onRefreshList = { propertiesViewModel.getAuctions() }
+                    //onRefreshList = { propertiesViewModel.getAuctions() }
                 )
             }
             if (isError) {
@@ -123,8 +123,7 @@ fun PreviewPropertiesScreen(modifier: Modifier = Modifier,
                 PropertyCardList(
                     auctions = auctions,
                     onDeleteProperty = {},
-                    onClickPropertyDetails = {},
-                    onRefreshList = {},
+                    onClickPropertyDetails = {}
                     )
         }
     }

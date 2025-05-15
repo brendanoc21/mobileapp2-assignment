@@ -7,6 +7,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import ie.setu.propertyauctionapp.data.model.AuctionModel
 import ie.setu.propertyauctionapp.data.api.RetrofitRepository
 import ie.setu.propertyauctionapp.firebase.services.AuthService
+import ie.setu.propertyauctionapp.firebase.services.FirestoreService
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -16,7 +17,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PropertiesViewModel @Inject
-constructor(private val repository: RetrofitRepository, private val authService: AuthService) : ViewModel(){
+constructor(private val repository: FirestoreService,
+            private val authService: AuthService
+) : ViewModel() {
     private val _auctions
             = MutableStateFlow<List<AuctionModel>>(emptyList())
     val uiAuctions: StateFlow<List<AuctionModel>>
@@ -39,9 +42,12 @@ constructor(private val repository: RetrofitRepository, private val authService:
         viewModelScope.launch {
             try {
                 isLoading.value = true
-                _auctions.value = repository.getAll(authService.email!!)
-                isErr.value = false
-                isLoading.value = false
+                repository.getAll(authService.email!!).collect { items ->
+                    _auctions.value = items
+                    isErr.value = false
+                    isLoading.value = false
+                }
+                Timber.i("DVM RVM = : ${_auctions.value}")
             }
             catch(e:Exception) {
                 isErr.value = true
@@ -52,9 +58,9 @@ constructor(private val repository: RetrofitRepository, private val authService:
         }
     }
 
-    fun deleteAuction(auction: AuctionModel) {
-        viewModelScope.launch {
-            repository.delete(authService.email!!,auction)
-        }
+
+    fun deleteAuction(auction: AuctionModel)
+            = viewModelScope.launch {
+        repository.delete(authService.email!!,auction._id)
     }
 }
