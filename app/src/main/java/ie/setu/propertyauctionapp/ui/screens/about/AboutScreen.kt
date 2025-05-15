@@ -36,14 +36,14 @@ fun AboutScreen(modifier: Modifier = Modifier) {
             Image(
                 painter = painterResource(id = R.drawable.house_image),
                 contentDescription = "house image",
-                modifier = Modifier.size(350.dp)
+                modifier = Modifier.size(250.dp)
             )
         }
         Centre(Modifier.fillMaxSize()) {
             Text(color = Color.White,
                 fontWeight = FontWeight.Bold,
-                fontSize = 30.sp,
-                lineHeight = 34.sp,
+                fontSize = 20.sp,
+                lineHeight = 24.sp,
                 textAlign = TextAlign.Center,
                 text = stringResource(R.string.about_message)
             )
