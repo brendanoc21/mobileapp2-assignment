@@ -64,9 +64,9 @@ fun LoginScreen(
                     .fillMaxSize()
             ) {
                 HeadingTextComponent(value = stringResource(id = R.string.welcome))
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(1.dp))
                 HeadingLogoComponent()
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(1.dp))
 
                 MyTextFieldComponent(labelValue = stringResource(id = R.string.email),
                     painterResource(id = R.drawable.message),
@@ -85,10 +85,10 @@ fun LoginScreen(
                     errorStatus = loginViewModel.loginUIState.value.passwordError
                 )
 
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(10.dp))
                 UnderLinedTextComponent(value = stringResource(id = R.string.forgot_password))
 
-                Spacer(modifier = Modifier.height(30.dp))
+                Spacer(modifier = Modifier.height(1.dp))
 
                 ButtonComponent(
                     value = stringResource(id = R.string.login),
@@ -164,9 +164,9 @@ fun PreviewLoginScreen() {
 
               //  NormalTextComponent(value = stringResource(id = R.string.login))
                 HeadingTextComponent(value = stringResource(id = R.string.welcome))
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(1.dp))
                 HeadingLogoComponent()
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(1.dp))
 
                 MyTextFieldComponent(labelValue = stringResource(id = R.string.email),
                     painterResource(id = R.drawable.message),
@@ -185,10 +185,10 @@ fun PreviewLoginScreen() {
                     errorStatus = true
                 )
 
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(1.dp))
                 UnderLinedTextComponent(value = stringResource(id = R.string.forgot_password))
 
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(1.dp))
 
                 ButtonComponent(
                     value = stringResource(id = R.string.login),
@@ -197,7 +197,10 @@ fun PreviewLoginScreen() {
                     },
                     isEnabled = false
                 )
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(1.dp))
+                GoogleSignInButtonComponent {
+                    //  loginViewModel.oneTapSignIn()
+                }
             }
         }
 
