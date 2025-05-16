@@ -1,8 +1,17 @@
 package ie.setu.propertyauctionapp.ui.screens.login
 
+import android.content.Context
 import androidx.compose.runtime.mutableStateOf
+import androidx.credentials.CredentialManager
+import androidx.credentials.CustomCredential
+import androidx.credentials.exceptions.GetCredentialException
+import androidx.credentials.GetCredentialRequest
+import androidx.credentials.GetCredentialResponse
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.android.gms.auth.api.identity.SignInClient
+import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
+import com.google.android.libraries.identity.googleid.GoogleIdTokenParsingException
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ie.setu.propertyauctionapp.data.rules.Validator
@@ -12,11 +21,14 @@ import ie.setu.propertyauctionapp.firebase.services.FirebaseSignInResponse
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     val authService: AuthService,
+    private val credentialManager: CredentialManager,
+    private val credentialRequest: GetCredentialRequest
 )
     : ViewModel() {
 
@@ -42,6 +54,13 @@ class LoginViewModel @Inject constructor(
 
         _loginFlow.value = Response.Loading
         val result = authService.authenticateUser(email, password)
+        _loginFlow.value = result
+    }
+
+    private fun loginGoogleUser(googleIdToken: String) = viewModelScope.launch {
+
+        _loginFlow.value = Response.Loading
+        val result = authService.authenticateGoogleUser(googleIdToken)
         _loginFlow.value = result
     }
 
@@ -86,6 +105,45 @@ class LoginViewModel @Inject constructor(
 
     fun resetLoginFlow() {
         _loginFlow.value = null
+    }
+
+    fun signInWithGoogleCredentials(credentialsContext : Context) {
+        viewModelScope.launch {
+            try {
+                val result = credentialManager.getCredential(
+                    request = credentialRequest,
+                    context = credentialsContext,
+                )
+                handleSignIn(result)
+            } catch (e: GetCredentialException) {
+                // handleFailure(e)
+            }
+        }
+    }
+
+    private fun handleSignIn(result: GetCredentialResponse) {
+        when (val credential = result.credential) {
+            is CustomCredential -> {
+                if (credential.type == GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL) {
+                    try {
+                        val googleIdTokenCredential = GoogleIdTokenCredential
+                            .createFrom(credential.data)
+                        val googleIdToken = googleIdTokenCredential.idToken
+                        loginGoogleUser(googleIdToken)
+                    } catch (e: GoogleIdTokenParsingException) {
+                        Timber.tag("TAG").e(e, "Received an invalid google id token response")
+                    }
+                }
+//                else {
+//                    // Catch any unrecognized custom credential type here.
+//                    Timber.tag("TAG").e("Unexpected type of credential")
+//                }
+            }
+//            else -> {
+//                // Catch any unrecognized credential type here.
+//                Timber.tag("TAG").e("Unexpected type of credential")
+//            }
+        }
     }
 }
 

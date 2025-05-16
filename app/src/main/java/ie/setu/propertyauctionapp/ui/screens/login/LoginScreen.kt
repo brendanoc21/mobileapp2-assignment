@@ -31,6 +31,7 @@ import ie.setu.propertyauctionapp.firebase.auth.Response
 import ie.setu.propertyauctionapp.navigation.Home
 import ie.setu.propertyauctionapp.navigation.Login
 import ie.setu.propertyauctionapp.ui.components.general.ButtonComponent
+import ie.setu.propertyauctionapp.ui.components.general.GoogleSignInButtonComponent
 import ie.setu.propertyauctionapp.ui.components.general.HeadingLogoComponent
 import ie.setu.propertyauctionapp.ui.components.general.HeadingTextComponent
 import ie.setu.propertyauctionapp.ui.components.general.MyTextFieldComponent
@@ -63,9 +64,9 @@ fun LoginScreen(
                     .fillMaxSize()
             ) {
                 HeadingTextComponent(value = stringResource(id = R.string.welcome))
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(1.dp))
                 HeadingLogoComponent()
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(1.dp))
 
                 MyTextFieldComponent(labelValue = stringResource(id = R.string.email),
                     painterResource(id = R.drawable.message),
@@ -84,10 +85,10 @@ fun LoginScreen(
                     errorStatus = loginViewModel.loginUIState.value.passwordError
                 )
 
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(10.dp))
                 UnderLinedTextComponent(value = stringResource(id = R.string.forgot_password))
 
-                Spacer(modifier = Modifier.height(30.dp))
+                Spacer(modifier = Modifier.height(1.dp))
 
                 ButtonComponent(
                     value = stringResource(id = R.string.login),
@@ -98,6 +99,13 @@ fun LoginScreen(
                     isEnabled = loginViewModel.allValidationsPassed.value
                 )
                 isEnabled = loginViewModel.allValidationsPassed.value
+
+                // Google Button here
+                Spacer(modifier = Modifier.height(10.dp))
+                val context = LocalContext.current
+                GoogleSignInButtonComponent {
+                    loginViewModel.signInWithGoogleCredentials(context)
+                }
             }
         }
     }
@@ -156,9 +164,9 @@ fun PreviewLoginScreen() {
 
               //  NormalTextComponent(value = stringResource(id = R.string.login))
                 HeadingTextComponent(value = stringResource(id = R.string.welcome))
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(1.dp))
                 HeadingLogoComponent()
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(1.dp))
 
                 MyTextFieldComponent(labelValue = stringResource(id = R.string.email),
                     painterResource(id = R.drawable.message),
@@ -177,10 +185,10 @@ fun PreviewLoginScreen() {
                     errorStatus = true
                 )
 
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(1.dp))
                 UnderLinedTextComponent(value = stringResource(id = R.string.forgot_password))
 
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(1.dp))
 
                 ButtonComponent(
                     value = stringResource(id = R.string.login),
@@ -189,7 +197,10 @@ fun PreviewLoginScreen() {
                     },
                     isEnabled = false
                 )
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(1.dp))
+                GoogleSignInButtonComponent {
+                    //  loginViewModel.oneTapSignIn()
+                }
             }
         }
 
