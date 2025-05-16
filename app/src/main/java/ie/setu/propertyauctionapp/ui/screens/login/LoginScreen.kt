@@ -31,6 +31,7 @@ import ie.setu.propertyauctionapp.firebase.auth.Response
 import ie.setu.propertyauctionapp.navigation.Home
 import ie.setu.propertyauctionapp.navigation.Login
 import ie.setu.propertyauctionapp.ui.components.general.ButtonComponent
+import ie.setu.propertyauctionapp.ui.components.general.GoogleSignInButtonComponent
 import ie.setu.propertyauctionapp.ui.components.general.HeadingLogoComponent
 import ie.setu.propertyauctionapp.ui.components.general.HeadingTextComponent
 import ie.setu.propertyauctionapp.ui.components.general.MyTextFieldComponent
@@ -98,6 +99,13 @@ fun LoginScreen(
                     isEnabled = loginViewModel.allValidationsPassed.value
                 )
                 isEnabled = loginViewModel.allValidationsPassed.value
+
+                // Google Button here
+                Spacer(modifier = Modifier.height(10.dp))
+                val context = LocalContext.current
+                GoogleSignInButtonComponent {
+                    loginViewModel.signInWithGoogleCredentials(context)
+                }
             }
         }
     }
