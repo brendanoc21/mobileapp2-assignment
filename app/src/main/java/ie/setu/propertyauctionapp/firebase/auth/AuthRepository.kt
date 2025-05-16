@@ -1,5 +1,6 @@
 package ie.setu.propertyauctionapp.firebase.auth
 
+import android.net.Uri
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -27,6 +28,9 @@ class AuthRepository
     override val email: String?
         get() = firebaseAuth.currentUser?.email
 
+    override val customPhotoUri: Uri?
+        get() = firebaseAuth.currentUser!!.photoUrl
+
     override suspend fun authenticateUser(email: String, password: String): FirebaseSignInResponse {
         return try {
                 val result = firebaseAuth.signInWithEmailAndPassword(email, password).await()
@@ -39,14 +43,20 @@ class AuthRepository
 
     override suspend fun createUser(name: String, email: String, password: String): FirebaseSignInResponse {
         return try {
+            val uri = Uri.parse("android.resource://ie.setu.propertyauctionapp/drawable/house_image")
             val result = firebaseAuth.createUserWithEmailAndPassword(email, password).await()
-            result.user?.updateProfile(UserProfileChangeRequest.Builder().setDisplayName(name).build())?.await()
+            result.user?.updateProfile(UserProfileChangeRequest
+                .Builder()
+                .setDisplayName(name)
+                .setPhotoUri(uri)
+                .build())?.await()
             return Response.Success(result.user!!)
         } catch (e: Exception) {
             e.printStackTrace()
             Response.Failure(e)
         }
     }
+
 
     override suspend fun signOut() {
         firebaseAuth.signOut()

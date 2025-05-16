@@ -1,5 +1,6 @@
 package ie.setu.propertyauctionapp.firebase.services
 
+import android.net.Uri
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseUser
 import ie.setu.propertyauctionapp.firebase.auth.Response
@@ -13,6 +14,7 @@ interface AuthService {
     val currentUser: FirebaseUser?
     val isUserAuthenticatedInFirebase: Boolean
     val email: String?
+    val customPhotoUri: Uri?
 
     suspend fun authenticateUser(email: String, password: String)
                 : FirebaseSignInResponse
