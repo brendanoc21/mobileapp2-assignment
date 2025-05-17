@@ -9,6 +9,7 @@ import androidx.compose.material.icons.filled.Details
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
@@ -71,6 +72,12 @@ object Register : AppDestination {
     override val route = "Register"
 }
 
-val bottomAppBarDestinations = listOf(Auction, Properties, About, Profile)
+object Map : AppDestination {
+    override val icon = Icons.Filled.LocationOn
+    override val label = "Map"
+    override val route = "map"
+}
+
+val bottomAppBarDestinations = listOf(Auction, Map, Properties, About, Profile)
 val userSignedOutDestinations = listOf(Login, Register)
-val allDestinations = listOf(Properties, Auction, About, Details, Profile, Login, Register, Home)
+val allDestinations = listOf(Properties, Auction, About, Details, Profile, Login, Register, Home, Map)
