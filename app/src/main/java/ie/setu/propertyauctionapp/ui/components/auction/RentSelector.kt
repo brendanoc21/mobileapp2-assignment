@@ -25,8 +25,8 @@ fun RentSelector(modifier: Modifier = Modifier,
                      onRentChange: (Boolean) -> Unit) {
 
     val radioOptions = listOf(
-        stringResource(R.string.rent_yes),
-        stringResource(R.string.rent_no)
+        stringResource(R.string.rent_no),
+        stringResource(R.string.rent_yes)
     )
     var forRent by remember { mutableStateOf(radioOptions[0]) }
 

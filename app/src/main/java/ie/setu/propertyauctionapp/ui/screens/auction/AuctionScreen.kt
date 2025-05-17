@@ -78,7 +78,7 @@ fun AuctionScreen(modifier: Modifier = Modifier,
                 )
                 RentSelector(
                     modifier = modifier,
-                    onRentChange = { forRent.toBoolean() }
+                    onRentChange = { forRent = it.toString() }
                 )
             }
             ProgressBar(

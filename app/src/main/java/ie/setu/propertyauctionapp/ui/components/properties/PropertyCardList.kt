@@ -34,8 +34,8 @@ internal fun PropertyCardList(
                 dateModified = DateFormat.getDateTimeInstance().format(auction.dateModified),
                 onClickDelete = { onDeleteProperty(auction) },
                 onClickPropertyDetails = { onClickPropertyDetails(auction._id) },
-                photoUri = Uri.parse(auction.imageUri)
-                //onRefreshList = onRefreshList
+                photoUri = Uri.parse(auction.imageUri),
+                forRent = auction.forRent
             )
         }
     }
