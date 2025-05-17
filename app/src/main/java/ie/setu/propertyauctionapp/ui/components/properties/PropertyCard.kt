@@ -52,6 +52,7 @@ import java.util.Date
 fun PropertyCard(
     propertyType: String,
     priceAmount: Int,
+    propertySize: String,
     details: String,
     dateCreated: String,
     dateModified: String,
@@ -67,6 +68,7 @@ fun PropertyCard(
     ) {
         PropertyCardContent(propertyType,
             priceAmount,
+            propertySize,
             details,
             dateCreated,
             dateModified,
@@ -82,6 +84,7 @@ fun PropertyCard(
 private fun PropertyCardContent(
     propertyType: String,
     priceAmount: Int,
+    propertySize: String,
     details: String,
     dateCreated: String,
     dateModified: String,
@@ -133,9 +136,15 @@ private fun PropertyCardContent(
                     )
                 )
             }
-            Text(
-                text = "Submitted $dateCreated", style = MaterialTheme.typography.labelSmall
-            )
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(
+                    text = "Submitted $dateCreated", style = MaterialTheme.typography.labelSmall
+                )
+                Spacer(Modifier.weight(1f))
+                Text(
+                    text = "Size: $propertySize", style = MaterialTheme.typography.labelLarge
+                )
+            }
             Text(
                 text = "Modified $dateModified", style = MaterialTheme.typography.labelSmall
             )
@@ -205,6 +214,7 @@ fun PropertyCardPreview() {
         PropertyCard(
             propertyType = "House",
             priceAmount = 100,
+            propertySize = "Small",
             details = """
                 A message entered 
                 by the user..."
