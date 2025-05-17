@@ -1,5 +1,6 @@
 package ie.setu.propertyauctionapp.ui.components.properties
 
+import android.net.Uri
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
@@ -31,7 +32,8 @@ internal fun PropertyCardList(
                 dateCreated = DateFormat.getDateTimeInstance().format(auction.dateAuctioned),
                 dateModified = DateFormat.getDateTimeInstance().format(auction.dateModified),
                 onClickDelete = { onDeleteProperty(auction) },
-                onClickPropertyDetails = { onClickPropertyDetails(auction._id) }
+                onClickPropertyDetails = { onClickPropertyDetails(auction._id) },
+                photoUri = Uri.parse(auction.imageUri)
                 //onRefreshList = onRefreshList
             )
         }

@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ie.setu.propertyauctionapp.data.model.AuctionModel
-import ie.setu.propertyauctionapp.data.api.RetrofitRepository
 import ie.setu.propertyauctionapp.firebase.services.AuthService
 import ie.setu.propertyauctionapp.firebase.services.FirestoreService
 import kotlinx.coroutines.launch

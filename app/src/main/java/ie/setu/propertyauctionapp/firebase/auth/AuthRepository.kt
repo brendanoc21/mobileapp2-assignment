@@ -9,11 +9,13 @@ import com.google.firebase.auth.UserProfileChangeRequest
 import ie.setu.propertyauctionapp.firebase.services.AuthService
 import ie.setu.propertyauctionapp.firebase.services.FirebaseSignInResponse
 import ie.setu.propertyauctionapp.firebase.services.SignInWithGoogleResponse
+import ie.setu.propertyauctionapp.firebase.services.StorageService
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
+import timber.log.Timber
 
 class AuthRepository
-@Inject constructor(private val firebaseAuth: FirebaseAuth)
+@Inject constructor(private val firebaseAuth: FirebaseAuth, private val storageService: StorageService)
     : AuthService {
 
     override val currentUserId: String
@@ -48,7 +50,7 @@ class AuthRepository
             result.user?.updateProfile(UserProfileChangeRequest
                 .Builder()
                 .setDisplayName(name)
-                .setPhotoUri(uri)
+                .setPhotoUri(uploadCustomPhotoUri(uri))
                 .build())?.await()
             return Response.Success(result.user!!)
         } catch (e: Exception) {
@@ -92,12 +94,25 @@ class AuthRepository
         return try {
             currentUser!!.updateProfile(UserProfileChangeRequest
                 .Builder()
-                .setPhotoUri(uri)
+                .setPhotoUri(uploadCustomPhotoUri(uri))
                 .build()).await()
             return Response.Success(currentUser!!)
         } catch (e: Exception) {
             e.printStackTrace()
             Response.Failure(e)
         }
+    }
+
+    private suspend fun uploadCustomPhotoUri(uri: Uri) : Uri {
+        if (uri.toString().isNotEmpty()) {
+            val urlTask = storageService.uploadFile(uri = uri, "images")
+            val url = urlTask.addOnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    Timber.e("task not successful: ${task.exception}")
+                }
+            }.await()
+            return url
+        }
+        return Uri.EMPTY
     }
 }
