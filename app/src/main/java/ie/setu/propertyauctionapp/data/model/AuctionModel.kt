@@ -25,7 +25,9 @@ data class AuctionModel(
     var latitude: Double = 0.0,
     var longitude: Double = 0.0,
     @SerializedName("propertysize")
-    val propertySize: String = "N/A"
+    val propertySize: String = "N/A",
+    @SerializedName("forrent")
+    val forRent: Boolean = false
 )
 
 val fakeAuctions = List(30) { i ->

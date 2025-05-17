@@ -26,6 +26,7 @@ import ie.setu.propertyauctionapp.ui.components.auction.AuctionButton
 import ie.setu.propertyauctionapp.ui.components.auction.DetailsInput
 import ie.setu.propertyauctionapp.ui.components.auction.ProgressBar
 import ie.setu.propertyauctionapp.ui.components.auction.RadioButtonGroup
+import ie.setu.propertyauctionapp.ui.components.auction.RentSelector
 import ie.setu.propertyauctionapp.ui.components.auction.SizeSelector
 import ie.setu.propertyauctionapp.ui.components.auction.WelcomeText
 import ie.setu.propertyauctionapp.ui.screens.properties.PropertiesViewModel
@@ -42,6 +43,7 @@ fun AuctionScreen(modifier: Modifier = Modifier,
     var propertyDetails by remember { mutableStateOf("Local Property") }
     var totalAuctioned by remember { mutableIntStateOf(0) }
     var propertySize by remember { mutableStateOf("Small") }
+    var forRent by remember { mutableStateOf("False") }
 
     totalAuctioned = auctions.sumOf { it.priceAmount }
 
@@ -67,9 +69,18 @@ fun AuctionScreen(modifier: Modifier = Modifier,
                     onPriceAmountChange = { priceAmount = it }
                 )
             }
-            SizeSelector(
-                onSizeChange = { propertySize = it }
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
             )
+            {
+                SizeSelector(
+                    onSizeChange = { propertySize = it }
+                )
+                RentSelector(
+                    modifier = modifier,
+                    onRentChange = { forRent.toBoolean() }
+                )
+            }
             ProgressBar(
                 modifier = modifier.padding(top = 2.dp,bottom = 2.dp),
                 totalAuctioned = totalAuctioned)
@@ -82,6 +93,7 @@ fun AuctionScreen(modifier: Modifier = Modifier,
                 auction = AuctionModel(propertyType = propertyType,
                     priceAmount = priceAmount,
                     propertySize = propertySize,
+                    forRent = forRent.toBoolean(),
                     details = propertyDetails),
                 onTotalAuctionedChange = { totalAuctioned = it }
             )
@@ -106,6 +118,8 @@ fun PreviewAuctionScreen(modifier: Modifier = Modifier,
     var priceAmount by remember { mutableIntStateOf(10) }
     var propertyDetails by remember { mutableStateOf("Local Property") }
     var totalAuctioned by remember { mutableIntStateOf(0) }
+    var propertySize by remember { mutableStateOf("Small") }
+    var forRent by remember { mutableStateOf("False") }
 
     totalAuctioned = auctions.sumOf { it.priceAmount }
 
@@ -131,6 +145,18 @@ fun PreviewAuctionScreen(modifier: Modifier = Modifier,
                     onPriceAmountChange = { priceAmount = it }
                 )
             }
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+            )
+            {
+                SizeSelector(
+                    onSizeChange = { propertySize = it }
+                )
+                RentSelector(
+                    modifier = modifier,
+                    onRentChange = { forRent.toBoolean() }
+                )
+            }
             ProgressBar(
                 modifier = modifier,
                 totalAuctioned = totalAuctioned)
@@ -142,6 +168,7 @@ fun PreviewAuctionScreen(modifier: Modifier = Modifier,
                 modifier = modifier,
                 auction = AuctionModel(propertyType = propertyType,
                     priceAmount = priceAmount,
+                    forRent = forRent.toBoolean(),
                     details = propertyDetails),
                 onTotalAuctionedChange = { totalAuctioned = it }
             )

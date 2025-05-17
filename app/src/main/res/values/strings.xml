@@ -53,4 +53,6 @@
     <string name="forgot_password">Forgot your password</string>
     <string name="home">Home</string>
     <string name="logout">Logout</string>
+    <string name="rent_yes">True</string>
+    <string name="rent_no">False</string>
 </resources>
