@@ -1,5 +1,6 @@
 package ie.setu.propertyauctionapp.firebase.services
 
+import android.net.Uri
 import ie.setu.propertyauctionapp.data.model.AuctionModel
 import kotlinx.coroutines.flow.Flow
 
@@ -13,4 +14,5 @@ interface FirestoreService {
     suspend fun insert(email: String, auction: Auction)
     suspend fun update(email: String, auction: Auction)
     suspend fun delete(email: String, auctionId: String)
+    suspend fun updatePhotoUris(email: String, uri: Uri)
 }

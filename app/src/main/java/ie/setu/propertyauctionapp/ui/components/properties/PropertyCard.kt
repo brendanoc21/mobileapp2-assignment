@@ -1,5 +1,6 @@
 package ie.setu.propertyauctionapp.ui.components.properties
 
+import android.net.Uri
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
@@ -9,6 +10,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Business
 import androidx.compose.material.icons.filled.Delete
@@ -31,10 +34,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import ie.setu.propertyauctionapp.R
 import ie.setu.propertyauctionapp.ui.theme.PropertyAuctionAppTheme
 import java.text.DateFormat
@@ -48,7 +56,8 @@ fun PropertyCard(
     dateCreated: String,
     dateModified: String,
     onClickDelete: () -> Unit,
-    onClickPropertyDetails: () -> Unit
+    onClickPropertyDetails: () -> Unit,
+    photoUri: Uri
 ) {
     Card(
         colors = CardDefaults.cardColors(
@@ -62,7 +71,8 @@ fun PropertyCard(
             dateCreated,
             dateModified,
             onClickDelete,
-            onClickPropertyDetails
+            onClickPropertyDetails,
+            photoUri
             //onRefreshList
         )
     }
@@ -76,7 +86,8 @@ private fun PropertyCardContent(
     dateCreated: String,
     dateModified: String,
     onClickDelete: () -> Unit,
-    onClickPropertyDetails: () -> Unit
+    onClickPropertyDetails: () -> Unit,
+    photoUri: Uri
 ) {
     var expanded by remember { mutableStateOf(false) }
     var showDeleteConfirmDialog by remember { mutableStateOf(false) }
@@ -97,10 +108,16 @@ private fun PropertyCardContent(
                 .padding(4.dp)
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Icon(
-                    imageVector = Icons.Filled.Business,
-                    stringResource(R.string.property_card_status),
-                    Modifier.padding(end = 8.dp)
+                AsyncImage(
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .data(photoUri)
+                        .crossfade(true)
+                        .build(),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .size(50.dp)
+                        .clip(CircleShape)
                 )
                 Text(
                     text = propertyType,
@@ -195,7 +212,8 @@ fun PropertyCardPreview() {
             dateCreated = DateFormat.getDateTimeInstance().format(Date()),
             dateModified = DateFormat.getDateTimeInstance().format(Date()),
             onClickDelete = { },
-            onClickPropertyDetails = {}
+            onClickPropertyDetails = {},
+            photoUri = Uri.EMPTY
         )
     }
 }
