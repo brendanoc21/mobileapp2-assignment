@@ -23,7 +23,9 @@ data class AuctionModel(
     var email: String = "joe@bloggs.com",
     var imageUri: String = "",
     var latitude: Double = 0.0,
-    var longitude: Double = 0.0
+    var longitude: Double = 0.0,
+    @SerializedName("propertysize")
+    val propertySize: String = "N/A"
 )
 
 val fakeAuctions = List(30) { i ->

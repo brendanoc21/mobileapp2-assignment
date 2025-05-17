@@ -26,6 +26,7 @@ import ie.setu.propertyauctionapp.ui.components.auction.AuctionButton
 import ie.setu.propertyauctionapp.ui.components.auction.DetailsInput
 import ie.setu.propertyauctionapp.ui.components.auction.ProgressBar
 import ie.setu.propertyauctionapp.ui.components.auction.RadioButtonGroup
+import ie.setu.propertyauctionapp.ui.components.auction.SizeSelector
 import ie.setu.propertyauctionapp.ui.components.auction.WelcomeText
 import ie.setu.propertyauctionapp.ui.screens.properties.PropertiesViewModel
 import ie.setu.propertyauctionapp.ui.theme.PropertyAuctionAppTheme
@@ -40,6 +41,7 @@ fun AuctionScreen(modifier: Modifier = Modifier,
     var priceAmount by remember { mutableIntStateOf(10) }
     var propertyDetails by remember { mutableStateOf("Local Property") }
     var totalAuctioned by remember { mutableIntStateOf(0) }
+    var propertySize by remember { mutableStateOf("Local Property") }
 
     totalAuctioned = auctions.sumOf { it.priceAmount }
 
@@ -65,6 +67,9 @@ fun AuctionScreen(modifier: Modifier = Modifier,
                     onPriceAmountChange = { priceAmount = it }
                 )
             }
+            SizeSelector(
+                onSizeChange = { propertySize = it }
+            )
             ProgressBar(
                 modifier = modifier.padding(top = 2.dp,bottom = 2.dp),
                 totalAuctioned = totalAuctioned)
