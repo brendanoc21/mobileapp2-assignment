@@ -72,6 +72,7 @@ fun DetailsScreen(
     if(isError)
         Toast.makeText(context,"Unable to fetch Details at this Time...",
             Toast.LENGTH_SHORT).show()
+
     if(!isError && !isLoading)
 
     Column(modifier = modifier.padding(
@@ -98,6 +99,9 @@ fun DetailsScreen(
             //Date Auctioned Field
             ReadOnlyTextField(value = auction.dateAuctioned.toString(),
                 label = stringResource(R.string.details_date))
+            //Property Size Field
+            ReadOnlyTextField(value = auction.propertySize,
+                label = stringResource(R.string.details_size))
             //Message Field
             text = auction.details
             OutlinedTextField(modifier = Modifier.fillMaxWidth(),

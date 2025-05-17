@@ -33,6 +33,7 @@
     <string name="details_price">Price Amount</string>
     <string name="details_date">Date Auctioned</string>
     <string name="details_details">Details</string>
+    <string name="details_size">Property Size</string>
     <string name="menu_button">Menu Button</string>
     <string name="back_button">Back Button</string>
     <string name="create_account">Create an Account </string>

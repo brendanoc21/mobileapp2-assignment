@@ -38,10 +38,10 @@ fun AuctionScreen(modifier: Modifier = Modifier,
     val auctions = propertiesViewModel.uiAuctions.collectAsState().value
 
     var propertyType by remember { mutableStateOf("House") }
-    var priceAmount by remember { mutableIntStateOf(10) }
+    var priceAmount by remember { mutableIntStateOf(1000) }
     var propertyDetails by remember { mutableStateOf("Local Property") }
     var totalAuctioned by remember { mutableIntStateOf(0) }
-    var propertySize by remember { mutableStateOf("Local Property") }
+    var propertySize by remember { mutableStateOf("Small") }
 
     totalAuctioned = auctions.sumOf { it.priceAmount }
 
@@ -81,6 +81,7 @@ fun AuctionScreen(modifier: Modifier = Modifier,
                 modifier = modifier,
                 auction = AuctionModel(propertyType = propertyType,
                     priceAmount = priceAmount,
+                    propertySize = propertySize,
                     details = propertyDetails),
                 onTotalAuctionedChange = { totalAuctioned = it }
             )

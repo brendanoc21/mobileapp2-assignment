@@ -28,6 +28,7 @@ internal fun PropertyCardList(
             PropertyCard(
                 propertyType = auction.propertyType,
                 priceAmount = auction.priceAmount,
+                propertySize = auction.propertySize,
                 details = auction.details,
                 dateCreated = DateFormat.getDateTimeInstance().format(auction.dateAuctioned),
                 dateModified = DateFormat.getDateTimeInstance().format(auction.dateModified),
