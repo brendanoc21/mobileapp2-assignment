@@ -34,6 +34,7 @@
     <string name="details_date">Date Auctioned</string>
     <string name="details_details">Details</string>
     <string name="details_size">Property Size</string>
+    <string name="details_rent">Is it Available for Rent</string>
     <string name="menu_button">Menu Button</string>
     <string name="back_button">Back Button</string>
     <string name="create_account">Create an Account </string>
@@ -53,4 +54,6 @@
     <string name="forgot_password">Forgot your password</string>
     <string name="home">Home</string>
     <string name="logout">Logout</string>
+    <string name="rent_yes">True</string>
+    <string name="rent_no">False</string>
 </resources>

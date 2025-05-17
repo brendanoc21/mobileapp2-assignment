@@ -58,7 +58,8 @@ fun PropertyCard(
     dateModified: String,
     onClickDelete: () -> Unit,
     onClickPropertyDetails: () -> Unit,
-    photoUri: Uri
+    photoUri: Uri,
+    forRent: Boolean
 ) {
     Card(
         colors = CardDefaults.cardColors(
@@ -74,8 +75,8 @@ fun PropertyCard(
             dateModified,
             onClickDelete,
             onClickPropertyDetails,
-            photoUri
-            //onRefreshList
+            photoUri,
+            forRent
         )
     }
 }
@@ -90,7 +91,8 @@ private fun PropertyCardContent(
     dateModified: String,
     onClickDelete: () -> Unit,
     onClickPropertyDetails: () -> Unit,
-    photoUri: Uri
+    photoUri: Uri,
+    forRent: Boolean
 ) {
     var expanded by remember { mutableStateOf(false) }
     var showDeleteConfirmDialog by remember { mutableStateOf(false) }
@@ -150,6 +152,7 @@ private fun PropertyCardContent(
             )
             if (expanded) {
                 Text(modifier = Modifier.padding(vertical = 16.dp), text = details)
+                Text(text = "Rentable? $forRent", style = MaterialTheme.typography.labelSmall)
                 Row(modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween) {
                     FilledTonalButton(onClick = onClickPropertyDetails) {
@@ -223,7 +226,8 @@ fun PropertyCardPreview() {
             dateModified = DateFormat.getDateTimeInstance().format(Date()),
             onClickDelete = { },
             onClickPropertyDetails = {},
-            photoUri = Uri.EMPTY
+            photoUri = Uri.EMPTY,
+            forRent = false
         )
     }
 }

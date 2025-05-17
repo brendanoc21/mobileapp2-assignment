@@ -76,17 +76,17 @@ fun DetailsScreen(
     if(!isError && !isLoading)
 
     Column(modifier = modifier.padding(
-        start = 24.dp,
-        end = 24.dp,
+        start = 10.dp,
+        end = 10.dp,
     ),
-        verticalArrangement = Arrangement.spacedBy(10.dp),
+        verticalArrangement = Arrangement.spacedBy(5.dp),
     ) {
         DetailsScreenText()
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxSize().padding(
-                start = 10.dp,
-                end = 10.dp,
+                start = 5.dp,
+                end = 5.dp,
             ),
         )
         {
@@ -146,7 +146,10 @@ fun DetailsScreen(
                 )
             )
             //End of Message Field
-            Spacer(modifier.height(height = 48.dp))
+            //Rent Field
+            ReadOnlyTextField(value = auction.forRent.toString(),
+                label = stringResource(R.string.details_rent))
+            Spacer(modifier.height(height = 10.dp))
             Button(
                 onClick = {
                     detailViewModel.updateAuction(auction)
