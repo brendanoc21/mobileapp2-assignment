@@ -12,6 +12,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.runtime.toMutableStateList
@@ -33,6 +34,7 @@ import ie.setu.propertyauctionapp.data.model.fakeAuctions
 import ie.setu.propertyauctionapp.ui.components.general.ShowLoader
 import ie.setu.propertyauctionapp.ui.screens.properties.PropertiesViewModel
 import ie.setu.propertyauctionapp.ui.screens.auction.AuctionViewModel
+import ie.setu.propertyauctionapp.ui.screens.map.MapViewModel
 import ie.setu.propertyauctionapp.ui.theme.PropertyAuctionAppTheme
 import timber.log.Timber
 
@@ -42,8 +44,9 @@ fun AuctionButton(
     auction: AuctionModel,
     auctionViewModel: AuctionViewModel = hiltViewModel(),
     propertiesViewModel: PropertiesViewModel = hiltViewModel(),
-    onTotalAuctionedChange: (Int) -> Unit
-) {
+    onTotalAuctionedChange: (Int) -> Unit,
+    mapViewModel: MapViewModel = hiltViewModel(),
+    ) {
     val auctions = propertiesViewModel.uiAuctions.collectAsState().value
 
     var totalAuctioned = auctions.sumOf { it.priceAmount }
@@ -56,13 +59,25 @@ fun AuctionButton(
 
     //if(isLoading) ShowLoader("Trying to add Auction...")
 
+    val locationLatLng = mapViewModel.currentLatLng.collectAsState().value
+    LaunchedEffect(mapViewModel.currentLatLng){
+        mapViewModel.getLocationUpdates()
+    }
+
+    Timber.i("DONATE BUTTON LAT/LNG COORDINATES " +
+            "lat/Lng: " + "$locationLatLng ")
+
     Row {
         Button(
             onClick = {
                 if(totalAuctioned + auction.priceAmount <= 1000000) {
                     totalAuctioned+=auction.priceAmount
                     onTotalAuctionedChange(totalAuctioned)
-                    auctionViewModel.insert(auction)
+                    val auctionLatLng = auction.copy(
+                        latitude = locationLatLng.latitude,
+                        longitude = locationLatLng.longitude
+                    )
+                    auctionViewModel.insert(auctionLatLng)
                     Timber.i("Property info : $auction")
                     Timber.i("Property List info : ${auctions.toList()}")
                 }
