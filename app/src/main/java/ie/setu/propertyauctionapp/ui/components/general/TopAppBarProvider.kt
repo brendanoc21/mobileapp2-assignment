@@ -66,22 +66,20 @@ fun TopAppBarProvider(
                     text = currentScreen.label,
                     color = Color.White
                 )
-                Row {
-                    if (name.isNotEmpty())
-                        Text(
-                            text = name,
-                            color = MaterialTheme.colorScheme.tertiaryContainer,
-                            fontSize = 14.sp,
-                            fontWeight = FontWeight.Bold
-                        )
-                    if (email.isNotEmpty())
-                        Text(
-                            text = " ($email)",
-                            color = Color.LightGray,
-                            fontSize = 10.sp,
-                            fontWeight = FontWeight.Bold
-                        )
-                }
+                if (name.isNotEmpty())
+                    Text(
+                        text = name,
+                        color = MaterialTheme.colorScheme.tertiaryContainer,
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                if (email.isNotEmpty())
+                    Text(
+                        text = " ($email)",
+                        color = Color.LightGray,
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.Bold
+                    )
             }
         },
         colors = TopAppBarDefaults.largeTopAppBarColors(
@@ -94,7 +92,7 @@ fun TopAppBarProvider(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = "Back Button",
                         tint = Color.White,
-                        modifier = Modifier.size(30.dp)
+                        modifier = Modifier.size(20.dp)
                     )
                 }
             }

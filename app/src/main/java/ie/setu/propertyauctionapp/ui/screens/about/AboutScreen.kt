@@ -36,7 +36,7 @@ fun AboutScreen(modifier: Modifier = Modifier) {
             Image(
                 painter = painterResource(id = R.drawable.house_image),
                 contentDescription = "house image",
-                modifier = Modifier.size(250.dp)
+                modifier = Modifier.size(300.dp)
             )
         }
         Centre(Modifier.fillMaxSize()) {

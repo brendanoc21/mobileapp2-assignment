@@ -87,4 +87,9 @@ class FirestoreRepository
                 Timber.i("Error $exception")
             }
     }
+
+    override suspend fun getDetails(details: String): Auction? {
+        return firestore.collection(AUCTION_COLLECTION)
+            .document(details).get().await().toObject()
+    }
 }
