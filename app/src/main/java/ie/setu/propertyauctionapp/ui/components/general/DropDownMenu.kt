@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
@@ -28,6 +29,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import ie.setu.propertyauctionapp.R
 import ie.setu.propertyauctionapp.navigation.About
+import ie.setu.propertyauctionapp.navigation.Profile
 import ie.setu.propertyauctionapp.ui.theme.PropertyAuctionAppTheme
 
 @Composable
@@ -56,6 +58,22 @@ fun DropDownMenu(navController: NavController) {
             expanded = expanded,
             onDismissRequest = { expanded = false },
         ) {
+            DropdownMenuItem(
+                text = { Text(color = Color.White,text = stringResource(R.string.dropdownmenu_profile), fontSize = 18.sp) },
+                trailingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.Person,
+                        contentDescription = stringResource(R.string.dropdownmenu_profile),
+                        tint = Color.White,
+                        modifier = Modifier.size(24.dp)
+                    )
+                },
+                onClick = {
+                    selectedOptionText = "Info"
+                    expanded = false
+                    navController.navigate(Profile.route)
+                },
+            )
             DropdownMenuItem(
                 text = { Text(color = Color.White,text = stringResource(R.string.dropdownmenu_info), fontSize = 18.sp) },
                 trailingIcon = {

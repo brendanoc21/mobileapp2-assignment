@@ -56,4 +56,5 @@
     <string name="logout">Logout</string>
     <string name="rent_yes">True</string>
     <string name="rent_no">False</string>
+    <string name="dropdownmenu_profile">Profile</string>
 </resources>
