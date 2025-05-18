@@ -10,6 +10,7 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.LocationOn
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
@@ -78,6 +79,12 @@ object Map : AppDestination {
     override val route = "map"
 }
 
-val bottomAppBarDestinations = listOf(Map, Properties)
+object Search : AppDestination {
+    override val icon = Icons.Filled.Search
+    override val label = "Search"
+    override val route = "search"
+}
+
+val bottomAppBarDestinations = listOf(Map, Properties, Search)
 val userSignedOutDestinations = listOf(Login, Register)
-val allDestinations = listOf(Properties, Auction, About, Details, Profile, Login, Register, Home, Map)
+val allDestinations = listOf(Properties, Auction, About, Details, Profile, Login, Register, Home, Map, Search)
