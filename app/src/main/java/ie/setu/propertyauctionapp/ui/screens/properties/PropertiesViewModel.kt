@@ -5,8 +5,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ie.setu.propertyauctionapp.data.model.AuctionModel
+import ie.setu.propertyauctionapp.data.rules.Constants.allAuctionsAvailable
 import ie.setu.propertyauctionapp.firebase.services.AuthService
 import ie.setu.propertyauctionapp.firebase.services.FirestoreService
+import ie.setu.propertyauctionapp.ui.components.general.AllAuctionSwitch
+import ie.setu.propertyauctionapp.ui.components.general.TopAppBarProvider
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -27,21 +30,36 @@ constructor(private val repository: FirestoreService,
     var isLoading = mutableStateOf(false)
     var error = mutableStateOf(Exception())
 
-//    init {
-//        viewModelScope.launch {
-//            repository.getAll().collect { listOfAuctions ->
-//                _auctions.value = listOfAuctions
-//            }
-//        }
-//    }
-
-    init { getAuctions() }
+    init {
+        if(allAuctionsAvailable) {getAllAuctions()}
+        else {getAuctions()}
+    }
 
     fun getAuctions() {
         viewModelScope.launch {
             try {
                 isLoading.value = true
                 repository.getAll(authService.email!!).collect { items ->
+                    _auctions.value = items
+                    isErr.value = false
+                    isLoading.value = false
+                }
+                Timber.i("DVM RVM = : ${_auctions.value}")
+            }
+            catch(e:Exception) {
+                isErr.value = true
+                isLoading.value = false
+                error.value = e
+                Timber.i("RVM Error ${e.message}")
+            }
+        }
+    }
+
+    fun getAllAuctions() {
+        viewModelScope.launch {
+            try {
+                isLoading.value = true
+                repository.getEvery().collect { items ->
                     _auctions.value = items
                     isErr.value = false
                     isLoading.value = false

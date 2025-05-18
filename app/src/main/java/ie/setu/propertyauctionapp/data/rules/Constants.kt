@@ -1,5 +1,7 @@
 package ie.setu.propertyauctionapp.data.rules
 
+import androidx.compose.runtime.mutableStateOf
+
 object Constants {
 
     //Firebase
@@ -18,4 +20,7 @@ object Constants {
     //Buttons
     const val SIGN_IN_WITH_GOOGLE = "Sign in with Google"
     const val SIGN_OUT = "Sign-out"
+
+    // I was unsure where to put a public accessible variable
+    public var allAuctionsAvailable = false
 }

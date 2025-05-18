@@ -10,6 +10,7 @@ typealias Auctions = Flow<List<Auction>>
 interface FirestoreService {
 
     suspend fun getAll(email: String) : Auctions
+    suspend fun getEvery() : Auctions
     suspend fun get(email: String, auctionId: String) : Auction?
     suspend fun insert(email: String, auction: Auction)
     suspend fun update(email: String, auction: Auction)

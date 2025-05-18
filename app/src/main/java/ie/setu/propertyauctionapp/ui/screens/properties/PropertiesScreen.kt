@@ -21,6 +21,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import ie.setu.propertyauctionapp.R
 import ie.setu.propertyauctionapp.data.model.AuctionModel
 import ie.setu.propertyauctionapp.data.model.fakeAuctions
+import ie.setu.propertyauctionapp.data.rules.Constants.allAuctionsAvailable
 import ie.setu.propertyauctionapp.ui.components.general.Centre
 import ie.setu.propertyauctionapp.ui.components.general.ShowError
 import ie.setu.propertyauctionapp.ui.components.general.ShowLoader
@@ -57,7 +58,7 @@ fun PropertiesScreen(
             //if(!isError)
             //   ShowRefreshList(onClick = { propertiesViewModel.getAuctions() })
             if (auctions.isEmpty() && !isError)
-            Centre(Modifier.fillMaxSize()) {
+                Centre(Modifier.fillMaxSize()) {
                     Text(color = MaterialTheme.colorScheme.secondary,
                         fontWeight = FontWeight.Bold,
                         fontSize = 30.sp,
