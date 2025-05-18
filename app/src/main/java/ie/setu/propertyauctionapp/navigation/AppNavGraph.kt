@@ -16,6 +16,7 @@ import ie.setu.propertyauctionapp.ui.screens.map.MapScreen
 import ie.setu.propertyauctionapp.ui.screens.profile.ProfileScreen
 import ie.setu.propertyauctionapp.ui.screens.properties.PropertiesScreen
 import ie.setu.propertyauctionapp.ui.screens.register.RegisterScreen
+import ie.setu.propertyauctionapp.ui.screens.search.SearchScreen
 
 @Composable
 fun NavHostProvider(
@@ -89,6 +90,10 @@ fun NavHostProvider(
         composable(route = Map.route) {
             //call our 'Map' Screen Here
             MapScreen()
+        }
+        composable(route = Search.route) {
+            //call our 'Map' Screen Here
+            SearchScreen()
         }
     }
 }

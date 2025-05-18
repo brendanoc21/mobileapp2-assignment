@@ -61,4 +61,6 @@
     <string name="warehouse">Warehouse</string>
     <string name="for_rent">This Property is available for Rent</string>
     <string name="not_for_rent">Renting is not available for this Property</string>
+    <string name="search_button">Search for a Property</string>
+    <string name="search_bar">Search</string>
 </resources>
