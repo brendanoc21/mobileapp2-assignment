@@ -56,4 +56,9 @@
     <string name="logout">Logout</string>
     <string name="rent_yes">True</string>
     <string name="rent_no">False</string>
+    <string name="dropdownmenu_profile">Profile</string>
+    <string name="rent_selection">Is this property \navailable for Renting?</string>
+    <string name="warehouse">Warehouse</string>
+    <string name="for_rent">This Property is available for Rent</string>
+    <string name="not_for_rent">Renting is not available for this Property</string>
 </resources>

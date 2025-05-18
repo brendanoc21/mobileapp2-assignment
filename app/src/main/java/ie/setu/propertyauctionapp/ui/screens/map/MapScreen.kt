@@ -2,6 +2,8 @@ package ie.setu.propertyauctionapp.ui.screens.map
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -77,7 +79,7 @@ fun MapScreen(
                 val position = LatLng(it.latitude,it.longitude)
                 MarkerComposable(
                     state = MarkerState(position = position),
-                    title = it.propertyType + " €" + it.priceAmount,
+                    title = it.propertySize + " " + it.propertyType + " €" + it.priceAmount,
                     snippet = it.details
                 ) { CustomMarker() }
             }

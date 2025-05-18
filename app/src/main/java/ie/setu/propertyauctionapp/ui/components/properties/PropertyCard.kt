@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Business
 import androidx.compose.material.icons.filled.Delete
@@ -35,6 +36,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -122,8 +124,9 @@ private fun PropertyCardContent(
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .size(50.dp)
-                        .clip(CircleShape)
+                        .clip(RoundedCornerShape(5.dp))
                 )
+                Spacer(Modifier.weight(1f))
                 Text(
                     text = propertyType,
                     style = MaterialTheme.typography.headlineMedium.copy(
@@ -152,8 +155,21 @@ private fun PropertyCardContent(
             )
             if (expanded) {
                 Text(modifier = Modifier.padding(vertical = 16.dp), text = details)
-                Text(text = "Rentable? $forRent", style = MaterialTheme.typography.labelSmall)
-                Row(modifier = Modifier.fillMaxWidth(),
+                if(forRent) {
+                    Text(
+                        text = stringResource(R.string.for_rent),
+                        style = MaterialTheme.typography.labelLarge,
+                        color = Color.Green
+                    )
+                }
+                else {
+                    Text(
+                        text = stringResource(R.string.not_for_rent),
+                        style = MaterialTheme.typography.labelLarge,
+                        color = Color.Red
+                    )
+                }
+                    Row(modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween) {
                     FilledTonalButton(onClick = onClickPropertyDetails) {
                         Text(text = "Show More...")
@@ -168,7 +184,6 @@ private fun PropertyCardContent(
                         showDeleteAlert(
                             onDismiss = { showDeleteConfirmDialog = false },
                             onDelete = onClickDelete
-                            //onRefresh = onRefreshList
                         )
                     }
                 }

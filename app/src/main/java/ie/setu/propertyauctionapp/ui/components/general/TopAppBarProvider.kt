@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.DrawerValue
@@ -26,8 +27,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import ie.setu.propertyauctionapp.firebase.services.AuthService
 import ie.setu.propertyauctionapp.navigation.AppDestination
 import ie.setu.propertyauctionapp.navigation.Auction
+import ie.setu.propertyauctionapp.navigation.Profile
 import ie.setu.propertyauctionapp.ui.theme.PropertyAuctionAppTheme
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -40,9 +43,16 @@ fun TopAppBarProvider(
     canNavigateBack: Boolean,
     email: String,
     name: String,
-    navigateUp: () -> Unit = {}
+    navigateUp: () -> Unit = {},
 )
 {
+    val navigateAuction: () -> Unit = {navController.navigate(Auction.route)}
+    var isActiveSession = true
+
+    if(currentScreen.label == "Login" || currentScreen.label == "Register") {
+        isActiveSession = false
+    }
+
     TopAppBar(
         title = {
             Column {
@@ -62,7 +72,7 @@ fun TopAppBarProvider(
                         Text(
                             text = " ($email)",
                             color = Color.LightGray,
-                            fontSize = 14.sp,
+                            fontSize = 10.sp,
                             fontWeight = FontWeight.Bold
                         )
                 }
@@ -94,7 +104,19 @@ fun TopAppBarProvider(
                 })
 
         },
-        actions = { DropDownMenu(navController = navController) }
+        actions = {
+            if (isActiveSession) {
+                IconButton(onClick = navigateAuction) {
+                    Icon(
+                        imageVector = Icons.Filled.AddCircle,
+                        contentDescription = "Back Button",
+                        tint = Color.White,
+                        modifier = Modifier.size(30.dp)
+                    )
+                }
+                DropDownMenu(navController = navController)
+            }
+        }
     )
 }
 

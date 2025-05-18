@@ -26,7 +26,8 @@ fun RadioButtonGroup(modifier: Modifier = Modifier,
 
     val radioOptions = listOf(
         stringResource(R.string.house),
-        stringResource(R.string.apartment)
+        stringResource(R.string.apartment),
+        stringResource(R.string.warehouse)
     )
     var propertyType by remember { mutableStateOf(radioOptions[0]) }
 
