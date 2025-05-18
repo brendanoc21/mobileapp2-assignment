@@ -27,6 +27,12 @@ class FirestoreRepository
             .dataObjects()
     }
 
+    override suspend fun getEvery(): Auctions {
+
+        return firestore.collection(AUCTION_COLLECTION)
+            .dataObjects()
+    }
+
     override suspend fun get(email: String,
                              auctionId: String): Auction? {
         return firestore.collection(AUCTION_COLLECTION)

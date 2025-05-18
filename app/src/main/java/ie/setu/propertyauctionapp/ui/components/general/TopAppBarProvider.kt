@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import ie.setu.propertyauctionapp.data.rules.Constants.allAuctionsAvailable
 import ie.setu.propertyauctionapp.firebase.services.AuthService
 import ie.setu.propertyauctionapp.navigation.AppDestination
 import ie.setu.propertyauctionapp.navigation.Auction
@@ -48,9 +49,14 @@ fun TopAppBarProvider(
 {
     val navigateAuction: () -> Unit = {navController.navigate(Auction.route)}
     var isActiveSession = true
+    var isPropertiesScreen = false
 
     if(currentScreen.label == "Login" || currentScreen.label == "Register") {
         isActiveSession = false
+    }
+
+    if(currentScreen.label == "Properties") {
+        isPropertiesScreen = true
     }
 
     TopAppBar(
@@ -105,11 +111,14 @@ fun TopAppBarProvider(
 
         },
         actions = {
+            if (isPropertiesScreen) {
+                AllAuctionSwitch(onAllAvailableChange = {allAuctionsAvailable = it})
+            }
             if (isActiveSession) {
                 IconButton(onClick = navigateAuction) {
                     Icon(
                         imageVector = Icons.Filled.AddCircle,
-                        contentDescription = "Back Button",
+                        contentDescription = "Add Auction Button",
                         tint = Color.White,
                         modifier = Modifier.size(30.dp)
                     )
