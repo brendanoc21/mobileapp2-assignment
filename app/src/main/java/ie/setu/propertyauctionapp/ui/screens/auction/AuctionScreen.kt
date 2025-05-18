@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -16,9 +17,11 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import ie.setu.propertyauctionapp.R
 import ie.setu.propertyauctionapp.data.model.AuctionModel
 import ie.setu.propertyauctionapp.data.model.fakeAuctions
 import ie.setu.propertyauctionapp.ui.components.auction.AmountPicker
@@ -50,8 +53,8 @@ fun AuctionScreen(modifier: Modifier = Modifier,
     Column {
         Column(
             modifier = modifier.padding(
-                start = 2.dp,
-                end = 2.dp
+                start = 10.dp,
+                end = 10.dp
             ),
             verticalArrangement = Arrangement.spacedBy(2.dp),
         ) {
@@ -76,6 +79,8 @@ fun AuctionScreen(modifier: Modifier = Modifier,
                 SizeSelector(
                     onSizeChange = { propertySize = it }
                 )
+                Spacer(modifier.weight(1f))
+                Text(stringResource(R.string.rent_selection), modifier.padding(10.dp))
                 RentSelector(
                     modifier = modifier,
                     onRentChange = { forRent = it.toString() }
@@ -126,8 +131,8 @@ fun PreviewAuctionScreen(modifier: Modifier = Modifier,
     Column {
         Column(
             modifier = modifier.padding(
-                start = 24.dp,
-                end = 24.dp
+                start = 10.dp,
+                end = 10.dp
             ),
             verticalArrangement = Arrangement.spacedBy(30.dp),
         ) {
@@ -152,6 +157,7 @@ fun PreviewAuctionScreen(modifier: Modifier = Modifier,
                 SizeSelector(
                     onSizeChange = { propertySize = it }
                 )
+                Text(stringResource(R.string.rent_selection), modifier.padding(10.dp))
                 RentSelector(
                     modifier = modifier,
                     onRentChange = { forRent.toBoolean() }
